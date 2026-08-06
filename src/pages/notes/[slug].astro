@@ -1,0 +1,48 @@
+---
+import { getCollection, render } from "astro:content";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { formatEntryDate } from "../../lib/contentMeta";
+
+export async function getStaticPaths() {
+  const notes = await getCollection("notes");
+  return notes.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry }
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<SiteLayout title={`${entry.data.title} - Field Notes - Nyan Matt Lab`} description={entry.data.subtitle}>
+  <main class="mockup-page entry-page entry-note">
+    <header class="mockup-topbar">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Nyan Matt Lab</span>
+      </a>
+      <nav aria-label="Primary">
+        <a href="/notes/">Notes</a>
+        <a href="/experiments/">Experiments</a>
+        <a href="/artifacts/">Artifacts</a>
+      </nav>
+    </header>
+
+    <article class="entry-shell entry-shell-note">
+      <aside class="entry-aside">
+        <a class="text-link" href="/notes/">back to notes</a>
+        <p>{formatEntryDate(entry.data.date)}</p>
+        <div class="content-tags">
+          {entry.data.tags.map((tag) => <small>{tag}</small>)}
+        </div>
+      </aside>
+      <div class="entry-body">
+        <p class="eyebrow">field note</p>
+        <h1>{entry.data.title}</h1>
+        {entry.data.subtitle && <p class="entry-subtitle">{entry.data.subtitle}</p>}
+        <Content />
+      </div>
+    </article>
+  </main>
+</SiteLayout>

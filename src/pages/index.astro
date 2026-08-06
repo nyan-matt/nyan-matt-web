@@ -1,0 +1,143 @@
+---
+import DirectionBoard from "../components/DirectionBoard.astro";
+import GitHubContributionCalendar from "../components/GitHubContributionCalendar.astro";
+import { homeSections } from "../data/homeSections";
+import { getGitHubContributions } from "../lib/githubContributions";
+import SiteLayout from "../layouts/SiteLayout.astro";
+
+const githubContributions = await getGitHubContributions({
+  cacheSeconds: Number(import.meta.env.GITHUB_CONTRIBUTIONS_CACHE_SECONDS ?? 1800),
+  login: import.meta.env.GITHUB_LOGIN,
+  token: import.meta.env.GITHUB_TOKEN
+});
+---
+
+<SiteLayout
+  title="Nyan Matt Lab - Design Exploration"
+  description="Astro, React, MDX design exploration for an AI-centric personal site."
+>
+  <div class="page-spine" aria-hidden="true">
+    <div class="spine-rail">
+      <span>issue 00</span>
+      <span>nyan matt lab</span>
+    </div>
+    <div class="spine-collage">
+      <i></i>
+      <i></i>
+      <i></i>
+      <i></i>
+    </div>
+  </div>
+
+  <div class="page-abstract is-asset" aria-hidden="true">
+    <i></i>
+    <i></i>
+    <i></i>
+    <i></i>
+    <i></i>
+    <i></i>
+  </div>
+
+  <main class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Nyan Matt Lab</span>
+      </a>
+      <nav aria-label="Primary">
+        <a href="/notes/">Notes</a>
+        <a href="/experiments/">Experiments</a>
+        <a href="/artifacts/">Artifacts</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">personal site exploration / astro + react + mdx</p>
+        <h1 data-text="A stranger umbrella for AI work, field notes, experiments, and useful little messes.">A stranger umbrella for AI work, field notes, experiments, and useful little messes.</h1>
+        <p>
+          This is a first-pass design lab for a portfolio-adjacent site with a sharper,
+          more technical voice than a classic design portfolio. The Caveman reference shows up
+          as density, proof, instrumentation, and compressed copy rather than a direct clone.
+        </p>
+      </div>
+      <aside class="hero-feed" aria-label="Scrollable site feed">
+        <div class="feed-head">
+          <p class="panel-kicker"><span>feed</span><span>current transmissions</span></p>
+          <strong>scroll</strong>
+        </div>
+        <div class="feed-scroll">
+          <article>
+            <span>071101 - 09:04 / note</span>
+            <h2>Create VS code theme.</h2>
+            <p>Todo: create a theme or extension for VS code or Terminal - post it when complete.</p>
+          </article>
+          <article>
+            <span>071101 - 10:22 :: experiment</span>
+            <h2>Get contribution heatmap.</h2>
+            <p>Fetch GraphQl contribiutions with PAT and render in one of the cards below.</p>
+          </article>
+          <article>
+            <span>071101 - 12:09 > link</span>
+            <h2>Hypnotic clock.</h2>
+            <p>Small experiments like this. How to embed? What happens with long content? does it wrap? get clipped? is ti respnspvie does it clip? what ahppens to a long listing?</p>
+            <p>Small experiments like this. How to embed? What happens with long content? does it wrap? get clipped? is ti respnspvie does it clip? what ahppens to a long listing?</p>
+          </article>
+          <article>
+            <span>071101 - 13:45 –— —___ index</span>
+            <h2>Figma Plugins</h2>
+            <p>Highlight some Figma plugin work, perhaps skills or custom shaders.</p>
+          </article>
+          <article>
+            <span>071101 - 13:45 / index</span>
+            <h2>Meme collection</h2>
+            <p>Random meme collection might be cool.</p>
+          </article>
+          <article>
+            <span>071101 - 13:45 / index</span>
+            <h2>Figma Plugins</h2>
+            <p>Highlight some Figma plugin work, perhaps skills or custom shaders.</p>
+          </article>
+          <article>
+            <span>071101 - 13:45 / index</span>
+            <h2>Figma Plugins</h2>
+            <p>Highlight some Figma plugin work, perhaps skills or custom shaders.</p>
+          </article>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section-band" id="directions">
+      <div class="section-heading">
+        <p class="eyebrow">Intentionally left blank</p>
+      </div>
+      <DirectionBoard directions={homeSections} />
+    </section>
+
+    <GitHubContributionCalendar result={githubContributions} />
+
+    <section class="content-map">
+      <div>
+        <p class="panel-kicker"><span>model</span><span>collections</span></p>
+        <h2>Early site map</h2>
+      </div>
+      <div class="map-grid">
+        <a href="/notes/">
+          <span>01</span>
+          <strong>Notes</strong>
+          <p>MDX essays, field notes, annotated ideas, and durable writing.</p>
+        </a>
+        <a href="/experiments/">
+          <span>02</span>
+          <strong>Experiments</strong>
+          <p>React islands, one-off tools, weird demos, and workbench pages.</p>
+        </a>
+        <a href="/artifacts/">
+          <span>03</span>
+          <strong>Artifacts</strong>
+          <p>Curated references, useful scraps, visual fragments, and small kept objects.</p>
+        </a>
+      </div>
+    </section>
+  </main>
+</SiteLayout>

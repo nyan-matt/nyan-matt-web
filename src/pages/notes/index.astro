@@ -1,0 +1,49 @@
+---
+import { getCollection } from "astro:content";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { formatEntryDate, sortByDate } from "../../lib/contentMeta";
+
+const notes = sortByDate(await getCollection("notes"));
+---
+
+<SiteLayout title="Field Notes - Nyan Matt Lab">
+  <main class="mockup-page collection-page collection-notes">
+    <header class="mockup-topbar">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Nyan Matt Lab</span>
+      </a>
+      <nav aria-label="Primary">
+        <a href="/notes/">Notes</a>
+        <a href="/experiments/">Experiments</a>
+        <a href="/artifacts/">Artifacts</a>
+      </nav>
+    </header>
+
+    <section class="collection-hero collection-hero-terminal">
+      <div>
+        <p class="eyebrow">notes / durable writing</p>
+        <h1>Notes</h1>
+        <p>Thoughts on design, process, AI workflows, product decisions, and random ideas.</p>
+      </div>
+      <aside class="collection-meter">
+        <span>notes logged</span>
+        <strong>{String(notes.length).padStart(2, "0")}</strong>
+        <i>essays / process / public notebook</i>
+      </aside>
+    </section>
+
+    <section class="collection-list collection-list-terminal" aria-label="Field notes">
+      {notes.map((entry, index) => (
+        <a class="collection-card collection-card-note" href={`/notes/${entry.slug}/`}>
+          <span>{String(index + 1).padStart(2, "0")} / {formatEntryDate(entry.data.date)}</span>
+          <h2>{entry.data.title}</h2>
+          {entry.data.subtitle && <p>{entry.data.subtitle}</p>}
+          <div class="content-tags">
+            {entry.data.tags.map((tag) => <small>{tag}</small>)}
+          </div>
+        </a>
+      ))}
+    </section>
+  </main>
+</SiteLayout>

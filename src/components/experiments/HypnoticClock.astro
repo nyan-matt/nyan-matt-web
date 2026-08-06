@@ -1,0 +1,132 @@
+---
+const assetBase = "/experiments/hypnotic-clock";
+const slots = [
+  "hour digit tens place",
+  "hour digit ones place",
+  "minute digit tens place",
+  "minute digit ones place",
+  "second digit tens place",
+  "second digit ones place"
+];
+---
+
+<section class="hypnotic-clock" aria-label="Live hypnotic clock experiment">
+  <div class="hypnotic-clock-head">
+    <span>Clock study</span>
+    <strong>local time / animated digits</strong>
+  </div>
+
+  <div class="hypnotic-clock-stack" data-hypnotic-clock data-asset-base={assetBase}>
+    {slots.map((label) => <img data-digit-slot alt={label} decoding="async" />)}
+  </div>
+
+  <p class="hypnotic-clock-caption">
+    Static digit plates hold until a value changes, then the animated source takes over for the tick.
+  </p>
+</section>
+
+<script>
+  const clocks = document.querySelectorAll("[data-hypnotic-clock]");
+
+  function getCurrentDigits() {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, "0");
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+    const seconds = String(now.getSeconds()).padStart(2, "0");
+
+    return `${hours}${minutes}${seconds}`;
+  }
+
+  clocks.forEach((clock) => {
+    const assetBase = clock.getAttribute("data-asset-base") ?? "";
+    const slots = Array.from(clock.querySelectorAll("[data-digit-slot]"));
+    let previousTime = "";
+
+    function paintClock(animateChanges) {
+      const currentTime = getCurrentDigits();
+
+      if (currentTime === previousTime) {
+        return;
+      }
+
+      slots.forEach((slot, index) => {
+        const digit = currentTime[index];
+        const changed = previousTime === "" || digit !== previousTime[index];
+        const extension = animateChanges && changed ? "webp" : "gif";
+        slot.setAttribute("src", `${assetBase}/${digit}.${extension}`);
+      });
+
+      previousTime = currentTime;
+    }
+
+    paintClock(false);
+    window.setInterval(() => paintClock(true), 1000);
+  });
+</script>
+
+<style>
+  .hypnotic-clock {
+    margin: 0 0 40px;
+    border: 1px solid var(--line);
+    background:
+      linear-gradient(180deg, rgba(243, 245, 242, 0.035), transparent 42%),
+      var(--panel-fill);
+  }
+
+  .hypnotic-clock-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px;
+    border-bottom: 1px solid var(--line);
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .hypnotic-clock-head strong {
+    color: var(--active);
+    font-weight: 400;
+  }
+
+  .hypnotic-clock-stack {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0;
+    padding: clamp(16px, 4vw, 48px);
+    filter: grayscale(1);
+  }
+
+  .hypnotic-clock-stack img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 248 / 314;
+    border: 1px solid #dfdfdf;
+    outline: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.22);
+  }
+
+  .hypnotic-clock-caption {
+    margin: 0;
+    padding: 16px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 560px) {
+    .hypnotic-clock-head {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 8px;
+    }
+  }
+</style>

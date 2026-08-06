@@ -1,0 +1,171 @@
+---
+import { directions } from "../../data/directions";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+
+export function getStaticPaths() {
+  return directions.map((direction) => ({
+    params: { slug: direction.slug },
+    props: { direction }
+  }));
+}
+
+const { direction } = Astro.props;
+---
+
+<SiteLayout title={`${direction.title} - Nyan Matt Lab`}>
+  <main class={`mockup-page theme-${direction.theme}`}>
+    <header class="mockup-topbar">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Nyan Matt Lab</span>
+      </a>
+      <nav aria-label="Mockup navigation">
+        <a href="/posts/prompt-ledger/">Posts</a>
+        <a href="/experiments/">Experiments</a>
+        <a href="/">Index</a>
+      </nav>
+    </header>
+
+    {direction.theme === "terminal" && (
+      <section class="terminal-layout" aria-label="Field Terminal mockup">
+        <div class="terminal-command">
+          <span>nyan-matt.dev / lab-plane</span>
+          <span>private archive becoming public</span>
+        </div>
+        <section class="terminal-hero">
+          <div>
+            <p class="eyebrow">mockup {direction.number} / closest to reference</p>
+            <h1>{direction.title}</h1>
+            <p>{direction.intro}</p>
+          </div>
+          <aside class="terminal-meter">
+            <span>signal kept</span>
+            <strong>73%</strong>
+            <i>field notes / experiments / umbrella work</i>
+          </aside>
+        </section>
+        <section class="terminal-grid">
+          <article class="terminal-buffer">
+            <p class="panel-kicker"><span>01</span><span>prompt ledger</span></p>
+            <h2>What changed, what failed, what got cheaper.</h2>
+            <div class="code-plate">
+              <p>README.md -> agent-notes.mdx -> prototype-log</p>
+              <p>design-safe-site omitted / lab-site active / originals recoverable</p>
+              <p>rendered as working surface, not presentation layer</p>
+              <div class="pixel-field" aria-hidden="true">
+                {Array.from({ length: 156 }).map((_, index) => <span style={{ opacity: 0.12 + ((index * 9) % 8) / 10 }} />)}
+              </div>
+            </div>
+          </article>
+          <article class="terminal-spend">
+            <p class="panel-kicker"><span>02</span><span>content routing</span></p>
+            {direction.sections.map((section) => (
+              <div class="route-row">
+                <span>{section.label}</span>
+                <strong>{section.title}</strong>
+                <em>{section.meta}</em>
+              </div>
+            ))}
+          </article>
+          {direction.notes.map((note, index) => (
+            <article class="terminal-tile">
+              <p class="panel-kicker"><span>{String(index + 3).padStart(2, "0")}</span><span>decision</span></p>
+              <p>{note}</p>
+            </article>
+          ))}
+        </section>
+      </section>
+    )}
+
+    {direction.theme === "notebook" && (
+      <section class="notebook-layout" aria-label="Research Notebook mockup">
+        <section class="notebook-hero">
+          <aside class="notebook-rail">
+            <span>02</span>
+            <p>margin system / public scratchpad / essays that can breathe</p>
+          </aside>
+          <div class="notebook-title">
+            <p class="eyebrow">mockup {direction.number} / writing-first</p>
+            <h1>{direction.title}</h1>
+            <p>{direction.intro}</p>
+          </div>
+        </section>
+
+        <section class="notebook-spread">
+          <aside class="margin-note">
+            <strong>Reader contract</strong>
+            <p>Less dashboard. More durable thinking. Technical proof stays available, but the essay owns the page.</p>
+          </aside>
+          <article class="notebook-article">
+            <p class="panel-kicker"><span>draft</span><span>agentic work notes</span></p>
+            <h2>Notes On Working With Agents</h2>
+            <p>
+              The site becomes a place to think in public: a sequence of posts, unresolved
+              questions, and annotated experiments that can later point back to the polished
+              portfolio without trying to become it.
+            </p>
+            <blockquote>
+              The interesting artifact is not always the final case study. Sometimes it is the
+              shape of the question that survived the build.
+            </blockquote>
+          </article>
+          <aside class="margin-note right">
+            <strong>Format</strong>
+            <p>MDX essays, tiny diagrams, citations, update notes, and links to related experiments.</p>
+          </aside>
+        </section>
+
+        <section class="notebook-index">
+          {direction.sections.map((section, index) => (
+            <article>
+              <span>{String(index + 1).padStart(2, "0")} / {section.label}</span>
+              <h2>{section.title}</h2>
+              <p>{section.body}</p>
+            </article>
+          ))}
+        </section>
+      </section>
+    )}
+
+    {direction.theme === "atlas" && (
+      <section class="atlas-layout" aria-label="Artifact Atlas mockup">
+        <section class="atlas-hero">
+          <div>
+            <p class="eyebrow">mockup {direction.number} / catalog-first</p>
+            <h1>{direction.title}</h1>
+            <p>{direction.intro}</p>
+          </div>
+          <aside class="atlas-object">
+            <span>artifact no. 019</span>
+            <strong>working surface</strong>
+          </aside>
+        </section>
+
+        <section class="artifact-wall">
+          <article class="artifact-feature">
+            <span>featured artifact</span>
+            <h2>Agentic Interface Studies</h2>
+            <p>
+              A catalog entry can hold a prototype, a post, a screenshot, a prompt trace,
+              and a small explanation without forcing it into traditional portfolio shape.
+            </p>
+          </article>
+          {direction.sections.map((section, index) => (
+            <article class={`artifact-card artifact-card-${index + 1}`}>
+              <span>{section.label}</span>
+              <h2>{section.title}</h2>
+              <p>{section.body}</p>
+              <footer>{section.meta}</footer>
+            </article>
+          ))}
+          <article class="artifact-card artifact-list">
+            <span>catalog rules</span>
+            <ul>
+              {direction.notes.map((note) => <li>{note}</li>)}
+            </ul>
+          </article>
+        </section>
+      </section>
+    )}
+  </main>
+</SiteLayout>

@@ -1,0 +1,49 @@
+---
+import { getCollection } from "astro:content";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { formatEntryDate, sortByDate } from "../../lib/contentMeta";
+
+const artifacts = sortByDate(await getCollection("artifacts"));
+---
+
+<SiteLayout title="Artifacts - Nyan Matt Lab">
+  <main class="mockup-page collection-page collection-artifacts">
+    <header class="mockup-topbar">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Nyan Matt Lab</span>
+      </a>
+      <nav aria-label="Primary">
+        <a href="/notes/">Notes</a>
+        <a href="/experiments/">Experiments</a>
+        <a href="/artifacts/">Artifacts</a>
+      </nav>
+    </header>
+
+    <section class="collection-hero collection-hero-terminal">
+      <div>
+        <p class="eyebrow">artifacts / useful fragments</p>
+        <h1>Artifacts</h1>
+        <p>References, scraps, assets, samples, downloads, and other useful objects that are too kept to be feed items.</p>
+      </div>
+      <aside class="collection-meter">
+        <span>objects kept</span>
+        <strong>{String(artifacts.length).padStart(2, "0")}</strong>
+        <i>references / assets / useful scraps</i>
+      </aside>
+    </section>
+
+    <section class="collection-list collection-list-terminal" aria-label="Artifacts">
+      {artifacts.map((entry, index) => (
+        <a class="collection-card collection-card-artifact" href={`/artifacts/${entry.slug}/`}>
+          <span>{String(index + 1).padStart(2, "0")} / {formatEntryDate(entry.data.date)}</span>
+          <h2>{entry.data.title}</h2>
+          {entry.data.subtitle && <p>{entry.data.subtitle}</p>}
+          <div class="content-tags">
+            {entry.data.tags.map((tag) => <small>{tag}</small>)}
+          </div>
+        </a>
+      ))}
+    </section>
+  </main>
+</SiteLayout>

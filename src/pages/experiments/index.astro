@@ -1,0 +1,49 @@
+---
+import { getCollection } from "astro:content";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { formatEntryDate, sortByDate } from "../../lib/contentMeta";
+
+const experiments = sortByDate(await getCollection("experiments"));
+---
+
+<SiteLayout title="Experiments - Nyan Matt Lab">
+  <main class="mockup-page collection-page collection-experiments">
+    <header class="mockup-topbar">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Nyan Matt Lab</span>
+      </a>
+      <nav aria-label="Primary">
+        <a href="/notes/">Notes</a>
+        <a href="/experiments/">Experiments</a>
+        <a href="/artifacts/">Artifacts</a>
+      </nav>
+    </header>
+
+    <section class="collection-hero collection-hero-terminal">
+      <div>
+        <p class="eyebrow">experiments / demos / product seeds</p>
+        <h1>Experiments</h1>
+        <p>Built things with varying degrees of polish: prototypes, plugins, themes, demos, workflow tools, and learning tests.</p>
+      </div>
+      <aside class="collection-meter">
+        <span>objects logged</span>
+        <strong>{String(experiments.length).padStart(2, "0")}</strong>
+        <i>rough allowed / links expected</i>
+      </aside>
+    </section>
+
+    <section class="collection-list collection-list-terminal" aria-label="Experiments">
+      {experiments.map((entry, index) => (
+        <a class="collection-card collection-card-experiment" href={`/experiments/${entry.slug}/`}>
+          <span>{String(index + 1).padStart(2, "0")} / {formatEntryDate(entry.data.date)}</span>
+          <h2>{entry.data.title}</h2>
+          {entry.data.subtitle && <p>{entry.data.subtitle}</p>}
+          <div class="content-tags">
+            {entry.data.tags.map((tag) => <small>{tag}</small>)}
+          </div>
+        </a>
+      ))}
+    </section>
+  </main>
+</SiteLayout>

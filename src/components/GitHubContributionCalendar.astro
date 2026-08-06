@@ -1,0 +1,77 @@
+---
+import type { GitHubContributionResult } from "../lib/githubContributions";
+
+type Props = {
+  result: GitHubContributionResult;
+};
+
+const { result } = Astro.props;
+const calendar = result.calendar;
+const days = calendar?.weeks.flatMap((week) => week.contributionDays) ?? [];
+const maxCount = Math.max(1, ...days.map((day) => day.contributionCount));
+const fetchedDate = result.fetchedAt
+  ? new Intl.DateTimeFormat("en", {
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      month: "short",
+      timeZoneName: "short"
+    }).format(new Date(result.fetchedAt))
+  : "env pending";
+---
+
+<section class="github-panel" aria-labelledby="github-panel-title">
+  <div class="github-panel-copy">
+    <p class="panel-kicker"><span>github</span><span>contributions</span></p>
+    <h2 id="github-panel-title">Working hard or hardly working?</h2>
+    <p>
+      GitHub contributions from personal account - I do most of my work on the weekends and occasionally before opening hours. 
+    </p>
+  </div>
+
+  <div class="github-calendar-card" data-status={result.status}>
+    <div class="github-calendar-head">
+      <div>
+        <span>{result.login ?? "github login"}</span>
+        <strong>{calendar ? `${calendar.totalContributions.toLocaleString()} contributions` : "calendar pending"}</strong>
+      </div>
+      <span>{fetchedDate}</span>
+    </div>
+
+    {calendar ? (
+      <>
+        <div class="github-calendar-grid" aria-label={`GitHub contribution calendar for ${result.login}`}>
+          {calendar.weeks.map((week) => (
+            <div class="github-calendar-week">
+              {week.contributionDays.map((day) => (
+                <time
+                  datetime={day.date}
+                  data-count={day.contributionCount}
+                  style={`--day-color: ${day.color}; --day-level: ${day.contributionCount / maxCount};`}
+                  title={`${day.date}: ${day.contributionCount} contributions`}
+                  aria-label={`${day.date}: ${day.contributionCount} contributions`}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
+        <div class="github-calendar-scale" aria-hidden="true">
+          <span>less</span>
+          {calendar.colors.map((color) => <i style={`--day-color: ${color};`}></i>)}
+          <span>more</span>
+        </div>
+      </>
+    ) : (
+      <div class="github-calendar-empty">
+        <span>{result.status}</span>
+        <p>{result.statusMessage}</p>
+      </div>
+    )}
+
+    {result.rateLimit && (
+      <p class="github-rate">
+        {result.rateLimit.cost} / {result.rateLimit.remaining.toLocaleString()} API calls
+      </p>
+    )}
+  </div>
+</section>
