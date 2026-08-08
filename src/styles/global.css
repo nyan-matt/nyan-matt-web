@@ -813,10 +813,7 @@ nav a:hover {
 }
 
 .board-notebook {
-  background:
-    linear-gradient(90deg, rgba(125, 211, 252, 0.12) 1px, transparent 1px),
-    var(--panel-fill);
-  background-size: 19% 100%;
+  background: var(--panel-fill);
 }
 
 .board-atlas {
@@ -842,13 +839,13 @@ nav a:hover {
 }
 
 .panel-kicker span:first-child::after {
-  content: "";
+  content: "*";
   display: inline-block;
-  width: 24px;
-  height: 1px;
+  /* width: 8px;
+  height: 1px; */
   margin-left: 8px;
   vertical-align: middle;
-  background: var(--faint);
+  /* background: var(--faint); */
 }
 
 .board-main {
@@ -967,14 +964,93 @@ nav a:hover {
   border-bottom: 1px solid var(--line);
 }
 
+.experiment-micro-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.experiment-micro-card {
+  position: relative;
+  min-height: 188px;
+  display: grid;
+  align-content: space-between;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(180deg, rgba(60, 255, 137, 0.055), transparent 62%),
+    var(--panel-fill-solid);
+  transition:
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.experiment-micro-card:hover {
+  border-color: color-mix(in srgb, var(--active) 58%, var(--line));
+  transform: translateY(-2px);
+}
+
+.experiment-micro-viz {
+  position: relative;
+  min-height: 132px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+  background:
+    radial-gradient(circle at 34% 42%, rgba(60, 255, 137, 0.1), transparent 34%),
+    radial-gradient(circle at 82% 64%, rgba(60, 255, 137, 0.055), transparent 30%),
+    linear-gradient(180deg, rgba(243, 245, 242, 0.035), transparent);
+}
+
+.experiment-dot-canvas {
+  display: block;
+  width: 100%;
+  height: 132px;
+}
+
+.experiment-micro-meta {
+  display: grid;
+  gap: 8px;
+  padding: 16px;
+}
+
+.experiment-micro-meta span {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.experiment-micro-meta strong {
+  color: var(--ink);
+  font-size: 1.35rem;
+  line-height: 1.05;
+}
+
+.micro-mode-outline .experiment-micro-viz {
+  background:
+    radial-gradient(circle at 72% 50%, rgba(125, 211, 252, 0.12), transparent 36%),
+    linear-gradient(180deg, rgba(125, 211, 252, 0.04), transparent);
+}
+
+.micro-mode-ascii .experiment-micro-viz {
+  background:
+    radial-gradient(circle at 50% 55%, rgba(255, 204, 102, 0.12), transparent 36%),
+    linear-gradient(180deg, rgba(255, 204, 102, 0.04), transparent);
+}
+
+.micro-mode-cluster .experiment-dot-canvas,
+.micro-mode-outline .experiment-dot-canvas,
+.micro-mode-ascii .experiment-dot-canvas {
+  opacity: 0.92;
+}
+
 .specimen-notebook {
   display: grid;
   grid-template-columns: 220px minmax(0, 1fr);
-  gap: 24px;
+  gap: 8px;
   align-items: stretch;
-  border-top: 1px solid color-mix(in srgb, var(--active) 40%, var(--line));
-  border-bottom: 1px solid color-mix(in srgb, var(--active) 40%, var(--line));
-  padding: 24px 0;
+  padding: 0;
 }
 
 .direction-option .specimen-notebook,
@@ -992,7 +1068,7 @@ nav a:hover {
 }
 
 .specimen-notebook aside {
-  padding: 16px;
+  padding: 8px 16px; 
   border-left: 2px solid var(--active);
 }
 
@@ -1011,7 +1087,8 @@ nav a:hover {
 
 .specimen-notebook p {
   color: var(--text-soft);
-  line-height: 1.6;
+  line-height: 1;
+  margin: 8px 0;
 }
 
 .specimen-atlas {
@@ -2339,6 +2416,17 @@ nav a:hover {
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .experiment-micro-card,
+  .experiment-dot-canvas {
+    transition: none;
+  }
+
+  .experiment-micro-card:hover {
+    transform: none;
+  }
+}
+
 .spine-rail,
 .eyebrow,
 .panel-kicker,
@@ -2356,6 +2444,7 @@ nav a:hover {
 .specimen-terminal-side p,
 .specimen-notebook span,
 .specimen-artifact span,
+.experiment-micro-meta span,
 .specimen-terminal-main strong,
 .board-notes p,
 .github-calendar-head span,

@@ -1,7 +1,5 @@
 ---
-import DirectionBoard from "../components/DirectionBoard.astro";
 import GitHubContributionCalendar from "../components/GitHubContributionCalendar.astro";
-import { homeSections } from "../data/homeSections";
 import { getGitHubContributions } from "../lib/githubContributions";
 import SiteLayout from "../layouts/SiteLayout.astro";
 
@@ -54,7 +52,7 @@ const githubContributions = await getGitHubContributions({
     <section class="hero">
       <div class="hero-copy">
         <p class="eyebrow">personal site exploration / astro + react + mdx</p>
-        <h1 data-text="A stranger umbrella for AI work, field notes, experiments, and useful little messes.">A stranger umbrella for AI work, field notes, experiments, and useful little messes.</h1>
+        <h1 data-text="A stranger umbrella for AI work, field notes, experiments, and semi-random content.">A stranger umbrella for AI work, field notes, experiments, and semi-random content.</h1>
         <p>
           This is a first-pass design lab for a portfolio-adjacent site with a sharper,
           more technical voice than a classic design portfolio. The Caveman reference shows up
@@ -107,11 +105,144 @@ const githubContributions = await getGitHubContributions({
       </aside>
     </section>
 
-    <section class="section-band" id="directions">
+    <section class="section-band" id="collections">
       <div class="section-heading">
-        <p class="eyebrow">Intentionally left blank</p>
+        <p class="eyebrow">three working shelves</p>
       </div>
-      <DirectionBoard directions={homeSections} />
+      <section class="direction-board" aria-label="Site collection overview">
+        <article class="direction-option theme-notebook">
+          <div class="direction-option-head">
+            <p class="panel-kicker">
+              <span>01</span>
+              <span>Mostly tell and some show</span>
+            </p>
+            <a class="text-link" href="/notes/">open notes</a>
+          </div>
+
+          <div class="board-preview theme-notebook board-notebook">
+            <div class="board-main">
+              <div>
+                <h2>Notes</h2>
+                <p>
+                  Thoughts that are more structured than a feed, but less formal than a blog post or essay.
+                </p>
+              </div>
+            </div>
+
+            <div class="direction-specimen specimen-notebook" aria-hidden="true">
+              <aside>
+                <span>MM-DD-YYYY</span>
+                <p>Design systems need a planning layer</p>
+                <div class="content-tags"> <small>design</small><small>design systems</small><small>ai</small><small>ai process</small> </div>
+              </aside>
+              <aside>
+                <span>MM-DD-YYYY</span>
+                <p>Supporting hi-density enterprise UIs</p>
+                <div class="content-tags"> <small>design</small><small>design systems</small><small>ai</small><small>ai process</small> </div>
+              </aside>
+              <aside>
+                <span>MM-DD-YYYY</span>
+                <p>Y2K Zine </p>
+                <div class="content-tags"> <small>design</small><small>design systems</small><small>ai</small><small>ai process</small> </div>
+              </aside>
+            </div>
+
+           
+          </div>
+        </article>
+
+        <article class="direction-option theme-terminal">
+          <div class="direction-option-head">
+            <p class="panel-kicker">
+              <span>02</span>
+              <span>Show and tell</span>
+            </p>
+            <a class="text-link" href="/experiments/">open experiments</a>
+          </div>
+
+          <div class="board-preview theme-terminal board-terminal">
+            <div class="board-main">
+              <div>
+                <h2>Experiments</h2>
+                <p>
+                  Show-first entries for things built to test an idea. Some stay rough,
+                  some become digital products, and some just leave useful residue.
+                </p>
+              </div>
+            </div>
+
+            <div class="experiment-micro-list">
+              <!-- data-mode chooses the renderer; data-shape and accent values tune each small field. -->
+              <a class="experiment-micro-card micro-mode-cluster" href="/experiments/hypnotic-clock/" data-dot-field data-mode="color-cluster" data-shape="circle" data-accent-r="60" data-accent-g="255" data-accent-b="137">
+                <div class="experiment-micro-viz" aria-hidden="true">
+                  <canvas class="experiment-dot-canvas" data-dot-canvas></canvas>
+                </div>
+                <div class="experiment-micro-meta">
+                  <span>motion / time</span>
+                  <strong>Hypnotic Clock</strong>
+                </div>
+              </a>
+
+              <a class="experiment-micro-card micro-mode-outline" href="/experiments/vs-code-theme/" data-dot-field data-mode="outline-repel" data-shape="circle" data-accent-r="125" data-accent-g="211" data-accent-b="252">
+                <div class="experiment-micro-viz" aria-hidden="true">
+                  <canvas class="experiment-dot-canvas" data-dot-canvas></canvas>
+                </div>
+                <div class="experiment-micro-meta">
+                  <span>theme / tooling</span>
+                  <strong>VS Code Theme</strong>
+                </div>
+              </a>
+
+              <a class="experiment-micro-card micro-mode-ascii" href="/experiments/homage-to-k10k/" data-dot-field data-mode="ascii-reveal" data-label="K10K" data-accent-r="255" data-accent-g="204" data-accent-b="102">
+                <div class="experiment-micro-viz" aria-hidden="true">
+                  <canvas class="experiment-dot-canvas" data-dot-canvas></canvas>
+                </div>
+                <div class="experiment-micro-meta">
+                  <span>archive / homage</span>
+                  <strong>Homage to K10k</strong>
+                </div>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <article class="direction-option theme-atlas">
+          <div class="direction-option-head">
+            <p class="panel-kicker">
+              <span>03</span>
+              <span>Junk drawer</span>
+            </p>
+            <a class="text-link" href="/artifacts/">open artifacts</a>
+          </div>
+
+          <div class="board-preview theme-atlas board-atlas">
+            <div class="board-main">
+              <div>
+                <h2>Artifacts</h2>
+                <p>
+                  A home for the useful-but-hard-to-classify: annotated links, assets,
+                  reference sets, type samples, textures, and future digital goods.
+                </p>
+              </div>
+            </div>
+
+            <div class="direction-specimen specimen-atlas" aria-hidden="true">
+              <article class="specimen-artifact specimen-artifact-1">
+                <span>reference</span>
+                <strong>Link Sets</strong>
+              </article>
+              </div>
+            </div>
+
+            <div class="board-notes">
+              <p>More organized than a feed.</p>
+              <p>Less formal than a post.</p>
+              <p>A place for useful fragments to accumulate.</p>
+              <p>Can become collections or products later.</p>
+            </div>
+          </div>
+        </article>
+      </section>
     </section>
 
     <GitHubContributionCalendar result={githubContributions} />
@@ -141,3 +272,289 @@ const githubContributions = await getGitHubContributions({
     </section>
   </main>
 </SiteLayout>
+
+<script>
+  const dotCanvases = document.querySelectorAll("[data-dot-canvas]");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+  const mix = (a, b, amount) => a + (b - a) * amount;
+  const ease = (value) => value * value * (3 - 2 * value);
+  const asciiChars = ".:/\\|+-<>[]01";
+
+  // Main tuning surface for the three preview effects.
+  // radius controls the cursor's magnetic/color field; smaller values make the active area tighter.
+  const fieldPresets = {
+    "color-cluster": {
+      gap: 9,
+      radius: 0.54,
+      pull: 4,
+      minSignal: 0.16,
+      size: { base: 1.8, signal: 0.46, pressure: 0.72 },
+      massA: { x: 0.32, y: 0.42, falloff: 2.1, strength: 1 },
+      massB: { x: 0.84, y: 0.64, falloff: 2.4, strength: 0.82 }
+    },
+    "outline-repel": {
+      gap: 10,
+      radius: 0.12,
+      pull: -9,
+      minSignal: 0.18,
+      fillAt: 0.42,
+      size: { base: 3, pressure: 3.4 },
+      ridge: { y: 0.34, wave: 0.08, falloff: 6, strength: 0.78 },
+      massB: { x: 0.84, y: 0.64, falloff: 2.4, strength: 0.54 }
+    },
+    "ascii-reveal": {
+      gap: 12,
+      radius: 0.52,
+      labelRow: 0.54,
+      bandY: 0.55,
+      bandFalloff: 2.4,
+      revealBoost: 1.2
+    }
+  };
+
+  const fields = Array.from(dotCanvases).map((canvas, index) => {
+    const card = canvas.closest("[data-dot-field]");
+    const context = canvas.getContext("2d");
+    const state = {
+      canvas,
+      card,
+      context,
+      index,
+      mode: card?.getAttribute("data-mode") ?? "color-cluster",
+      shape: card?.getAttribute("data-shape") ?? "square",
+      label: card?.getAttribute("data-label") ?? "",
+      accent: {
+        r: Number(card?.getAttribute("data-accent-r") ?? 60),
+        g: Number(card?.getAttribute("data-accent-g") ?? 255),
+        b: Number(card?.getAttribute("data-accent-b") ?? 137)
+      },
+      width: 0,
+      height: 0,
+      pointer: { x: 0.5, y: 0.5 },
+      easedPointer: { x: 0.5, y: 0.5 },
+      active: 0,
+      targetActive: 0,
+      phase: index * 18
+    };
+
+    return state;
+  }).filter((field) => field.context && field.card);
+
+  function resizeField(field) {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const rect = field.canvas.getBoundingClientRect();
+    field.width = rect.width;
+    field.height = rect.height;
+    field.canvas.width = Math.max(1, Math.round(rect.width * dpr));
+    field.canvas.height = Math.max(1, Math.round(rect.height * dpr));
+    field.context.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function hash(x, y, salt = 0) {
+    return Math.sin(x * 127.1 + y * 311.7 + salt * 74.7) * 43758.5453 % 1;
+  }
+
+  function drawCircle(context, x, y, size, fillStyle, strokeStyle, lineWidth = 1) {
+    context.beginPath();
+    context.arc(x, y, size / 2, 0, Math.PI * 2);
+
+    if (fillStyle) {
+      context.fillStyle = fillStyle;
+      context.fill();
+    }
+
+    if (strokeStyle) {
+      context.lineWidth = lineWidth;
+      context.strokeStyle = strokeStyle;
+      context.stroke();
+    }
+  }
+
+  function drawSquare(context, x, y, size, fillStyle, strokeStyle, lineWidth = 1) {
+    const offset = size / 2;
+
+    if (fillStyle) {
+      context.fillStyle = fillStyle;
+      context.fillRect(x - offset, y - offset, size, size);
+    }
+
+    if (strokeStyle) {
+      context.lineWidth = lineWidth;
+      context.strokeStyle = strokeStyle;
+      context.strokeRect(x - offset, y - offset, size, size);
+    }
+  }
+
+  function drawMark(context, field, x, y, size, fillStyle, strokeStyle, lineWidth = 1) {
+    if (field.shape === "circle") {
+      drawCircle(context, x, y, size, fillStyle, strokeStyle, lineWidth);
+      return;
+    }
+
+    drawSquare(context, x, y, size, fillStyle, strokeStyle, lineWidth);
+  }
+
+  function drawAsciiField(field) {
+    const { context, width, height, accent, label } = field;
+    const preset = fieldPresets["ascii-reveal"];
+    const gap = preset.gap;
+    const cols = Math.floor(width / gap);
+    const rows = Math.floor(height / gap);
+    const labelText = label || "LAB";
+    const labelRow = Math.floor(rows * preset.labelRow);
+    const labelStart = Math.floor((cols - labelText.length) / 2);
+    const pointerX = field.easedPointer.x * width;
+    const pointerY = field.easedPointer.y * height;
+    const maxDistance = Math.max(width, height) * preset.radius;
+
+    context.font = "12px Silkscreen, monospace";
+    context.textAlign = "center";
+    context.textBaseline = "middle";
+
+    for (let row = 0; row < rows; row += 1) {
+      for (let col = 0; col < cols; col += 1) {
+        const x = col * gap + gap * 0.5;
+        const y = row * gap + gap * 0.5;
+        const nx = x / width;
+        const ny = y / height;
+        const distance = Math.hypot(x - pointerX, y - pointerY);
+        const pressure = ease(clamp(1 - distance / maxDistance, 0, 1)) * field.active;
+        const staticNoise = Math.abs(hash(col, row, field.index));
+        const labelIndex = col - labelStart;
+        const isLabelCell = row === labelRow && labelIndex >= 0 && labelIndex < labelText.length;
+        const reveal = isLabelCell ? ease(clamp(pressure * preset.revealBoost + field.active * 0.35, 0, 1)) : 0;
+        const fieldBand = ease(clamp(1 - Math.abs(ny - preset.bandY) * preset.bandFalloff, 0, 1));
+        const signal = clamp(staticNoise * 0.48 + fieldBand * 0.34 + pressure * 0.74 + reveal, 0, 1);
+
+        if (signal < 0.34 && !isLabelCell) continue;
+
+        const char = reveal > 0.38
+          ? labelText[labelIndex]
+          : asciiChars[Math.floor(staticNoise * asciiChars.length) % asciiChars.length];
+        const r = mix(130 + staticNoise * 45, accent.r, pressure * 0.9 + reveal);
+        const g = mix(130 + staticNoise * 45, accent.g, pressure * 0.9 + reveal);
+        const b = mix(130 + staticNoise * 45, accent.b, pressure * 0.9 + reveal);
+        const alpha = clamp((isLabelCell ? 0.3 : 0.08) + signal * 0.48 + reveal * 0.42, 0, 0.96);
+
+        context.fillStyle = `rgba(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)}, ${alpha})`;
+        context.fillText(char, x, y + Math.sin(field.phase + nx * 6) * pressure * 2);
+      }
+    }
+  }
+
+  function drawField(field, time) {
+    const { context, width, height, accent, mode } = field;
+    if (!width || !height) return;
+
+    field.active = mix(field.active, field.targetActive, reduceMotion ? 1 : 0.16);
+    field.easedPointer.x = mix(field.easedPointer.x, field.pointer.x, reduceMotion ? 1 : 0.22);
+    field.easedPointer.y = mix(field.easedPointer.y, field.pointer.y, reduceMotion ? 1 : 0.22);
+    field.phase += reduceMotion ? 0 : 0.008 + field.active * 0.01;
+
+    context.clearRect(0, 0, width, height);
+
+    if (mode === "ascii-reveal") {
+      drawAsciiField(field);
+      return;
+    }
+
+    const preset = fieldPresets[mode] ?? fieldPresets["color-cluster"];
+    const gap = preset.gap;
+    const startX = -gap;
+    const startY = -gap;
+    const pointerX = field.easedPointer.x * width;
+    const pointerY = field.easedPointer.y * height;
+    const maxDistance = Math.max(width, height) * preset.radius;
+
+    for (let y = startY; y <= height + gap; y += gap) {
+      for (let x = startX; x <= width + gap; x += gap) {
+        const nx = x / width;
+        const ny = y / height;
+        const dx = x - pointerX;
+        const dy = y - pointerY;
+        const distance = Math.hypot(dx, dy);
+        const pressure = ease(clamp(1 - distance / maxDistance, 0, 1)) * field.active;
+        const grain = Math.sin(nx * 18 + ny * 11 + field.index * 2.4) * 0.5 + 0.5;
+        // Static masses define the non-hover composition; falloff is the cluster size.
+        const leftMass = preset.massA
+          ? ease(clamp(1 - Math.hypot(nx - preset.massA.x, ny - preset.massA.y) * preset.massA.falloff, 0, 1)) * preset.massA.strength
+          : 0;
+        const rightMass = preset.massB
+          ? ease(clamp(1 - Math.hypot(nx - preset.massB.x, ny - preset.massB.y) * preset.massB.falloff, 0, 1)) * preset.massB.strength
+          : 0;
+        // The outline preview gets a wave-like ridge so it does not read as another blob field.
+        const ridge = preset.ridge
+          ? ease(clamp(1 - Math.abs(ny - (preset.ridge.y + Math.sin(nx * 5 + field.phase) * preset.ridge.wave)) * preset.ridge.falloff, 0, 1)) * preset.ridge.strength
+          : 0;
+        const baseField = mode === "outline-repel"
+          ? Math.max(ridge, rightMass)
+          : Math.max(leftMass, rightMass);
+        const shimmer = reduceMotion || mode === "color-cluster" ? 0 : Math.sin(field.phase + nx * 14 + ny * 20) * 0.08;
+        const signal = clamp(baseField * 0.86 + grain * 0.18 + pressure * 0.95 + shimmer, 0, 1);
+
+        if (signal < preset.minSignal) continue;
+
+        const pull = pressure * preset.pull;
+        const safeDistance = distance || 1;
+        const warpX = dx / safeDistance * pull;
+        const warpY = dy / safeDistance * pull;
+        const r = mix(122 + grain * 44, accent.r, pressure * 0.95);
+        const g = mix(126 + grain * 44, accent.g, pressure * 0.95);
+        const b = mix(132 + grain * 44, accent.b, pressure * 0.95);
+        const alpha = clamp(0.14 + signal * 0.58 + pressure * 0.28, 0, 0.96);
+        const fillStyle = `rgba(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)}, ${alpha})`;
+
+        if (mode === "outline-repel") {
+          const size = preset.size.base + pressure * preset.size.pressure;
+          const strokeStyle = `rgba(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)}, ${clamp(0.26 + signal * 0.44, 0, 0.9)})`;
+          const fill = pressure > preset.fillAt ? fillStyle : null;
+
+          drawMark(context, field, x + warpX, y + warpY, size, fill, strokeStyle, 1);
+        } else {
+          const size = preset.size.base + signal * preset.size.signal + pressure * preset.size.pressure;
+
+          drawMark(context, field, x + warpX, y + warpY, size, fillStyle);
+        }
+      }
+    }
+  }
+
+  function frame(time) {
+    fields.forEach((field) => drawField(field, time));
+    if (!reduceMotion) requestAnimationFrame(frame);
+  }
+
+  fields.forEach((field) => {
+    resizeField(field);
+
+    field.card.addEventListener("pointermove", (event) => {
+      const rect = field.card.getBoundingClientRect();
+      field.pointer.x = clamp((event.clientX - rect.left) / rect.width, 0, 1);
+      field.pointer.y = clamp((event.clientY - rect.top) / rect.height, 0, 1);
+      field.targetActive = 1;
+      if (reduceMotion) drawField(field, 0);
+    });
+
+    field.card.addEventListener("pointerleave", () => {
+      field.targetActive = 0;
+      field.pointer.x = 0.5;
+      field.pointer.y = 0.5;
+      if (reduceMotion) drawField(field, 0);
+    });
+  });
+
+  const resizeObserver = new ResizeObserver((entries) => {
+    entries.forEach((entry) => {
+      const field = fields.find((item) => item.canvas === entry.target);
+      if (field) {
+        resizeField(field);
+        drawField(field, 0);
+      }
+    });
+  });
+
+  fields.forEach((field) => resizeObserver.observe(field.canvas));
+  fields.forEach((field) => drawField(field, 0));
+  if (!reduceMotion && fields.length) requestAnimationFrame(frame);
+</script>
