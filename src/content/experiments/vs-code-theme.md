@@ -2,6 +2,12 @@
 title: "VS Code Theme"
 subtitle: "Visual Studio Code theme example"
 date: 2026-07-30
+homePreview:
+  enabled: true
+  mode: "outline-repel"
+  shape: "circle"
+  kicker: "theme / tooling"
+  accent: [125, 211, 252]
 tags: ["theme", "tooling", "design"]
 ---
 

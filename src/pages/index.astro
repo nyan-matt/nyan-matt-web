@@ -1,6 +1,8 @@
 ---
+import { getCollection } from "astro:content";
 import GitHubContributionCalendar from "../components/GitHubContributionCalendar.astro";
 import { getGitHubContributions } from "../lib/githubContributions";
+import { formatEntryDate, selectFeaturedThenLatest } from "../lib/contentMeta";
 import SiteLayout from "../layouts/SiteLayout.astro";
 
 const githubContributions = await getGitHubContributions({
@@ -8,6 +10,17 @@ const githubContributions = await getGitHubContributions({
   login: import.meta.env.GITHUB_LOGIN,
   token: import.meta.env.GITHUB_TOKEN
 });
+const homeNotes = selectFeaturedThenLatest(await getCollection("notes"), 3);
+const homeArtifacts = selectFeaturedThenLatest(await getCollection("artifacts"), 3);
+const homeExperiments = selectFeaturedThenLatest(
+  (await getCollection("experiments")).filter((entry) => entry.data.homePreview?.enabled),
+  3
+);
+const previewModeClasses = {
+  "ascii-reveal": "micro-mode-ascii",
+  "color-cluster": "micro-mode-cluster",
+  "outline-repel": "micro-mode-outline"
+};
 ---
 
 <SiteLayout
@@ -51,12 +64,11 @@ const githubContributions = await getGitHubContributions({
 
     <section class="hero">
       <div class="hero-copy">
-        <p class="eyebrow">personal site exploration / astro + react + mdx</p>
-        <h1 data-text="A stranger umbrella for AI work, field notes, experiments, and semi-random content.">A stranger umbrella for AI work, field notes, experiments, and semi-random content.</h1>
+        <p class="eyebrow">exploration space</p>
+        <h1 data-text="Designer specializing in design systems, engineering, and AI-assisted workflows.">Designer specializing in design systems, engineering, and AI-assisted workflows.</h1>
         <p>
-          This is a first-pass design lab for a portfolio-adjacent site with a sharper,
-          more technical voice than a classic design portfolio. The Caveman reference shows up
-          as density, proof, instrumentation, and compressed copy rather than a direct clone.
+          Exploration space for product design, front-end engineering, and AI development. 
+          
         </p>
       </div>
       <aside class="hero-feed" aria-label="Scrollable site feed">
@@ -109,132 +121,101 @@ const githubContributions = await getGitHubContributions({
       <div class="section-heading">
         <p class="eyebrow">three working shelves</p>
       </div>
-      <section class="direction-board" aria-label="Site collection overview">
-        <article class="direction-option theme-notebook">
-          <div class="direction-option-head">
-            <p class="panel-kicker">
-              <span>01</span>
-              <span>Mostly tell and some show</span>
-            </p>
-            <a class="text-link" href="/notes/">open notes</a>
-          </div>
-
-          <div class="board-preview theme-notebook board-notebook">
-            <div class="board-main">
+      <section class="home-panel-grid" aria-label="Site collection overview">
+        <article class="home-panel home-panel-notes">
+          <div class="home-panel-preview">
+            <div class="home-panel-intro">
               <div>
                 <h2>Notes</h2>
                 <p>
-                  Thoughts that are more structured than a feed, but less formal than a blog post or essay.
+                  Ideas and informal thoughts.
                 </p>
               </div>
             </div>
 
-            <div class="direction-specimen specimen-notebook" aria-hidden="true">
-              <aside>
-                <span>MM-DD-YYYY</span>
-                <p>Design systems need a planning layer</p>
-                <div class="content-tags"> <small>design</small><small>design systems</small><small>ai</small><small>ai process</small> </div>
-              </aside>
-              <aside>
-                <span>MM-DD-YYYY</span>
-                <p>Supporting hi-density enterprise UIs</p>
-                <div class="content-tags"> <small>design</small><small>design systems</small><small>ai</small><small>ai process</small> </div>
-              </aside>
-              <aside>
-                <span>MM-DD-YYYY</span>
-                <p>Y2K Zine </p>
-                <div class="content-tags"> <small>design</small><small>design systems</small><small>ai</small><small>ai process</small> </div>
-              </aside>
+            <div class="home-entry-list" aria-label="Recent notes">
+              {homeNotes.map((entry) => (
+                <article class="home-entry">
+                  <span>{formatEntryDate(entry.data.date)}</span>
+                  <a href={`/notes/${entry.slug}/`} class="home-entry-link">{entry.data.title}</a>
+                  {entry.data.subtitle && <p>{entry.data.subtitle}</p>}
+                  {entry.data.tags.length > 0 && (
+                    <div class="content-tags">
+                      {entry.data.tags.map((tag) => <small>{tag}</small>)}
+                    </div>
+                  )}
+                </article>
+              ))}
             </div>
-
-           
           </div>
         </article>
 
-        <article class="direction-option theme-terminal">
-          <div class="direction-option-head">
-            <p class="panel-kicker">
-              <span>02</span>
-              <span>Show and tell</span>
-            </p>
-            <a class="text-link" href="/experiments/">open experiments</a>
-          </div>
-
-          <div class="board-preview theme-terminal board-terminal">
-            <div class="board-main">
+        <article class="home-panel home-panel-experiments">
+          <div class="home-panel-preview">
+            <div class="home-panel-intro">
               <div>
                 <h2>Experiments</h2>
                 <p>
-                  Show-first entries for things built to test an idea. Some stay rough,
-                  some become digital products, and some just leave useful residue.
+                  Studies, demos, and one-off tools.
                 </p>
               </div>
             </div>
 
             <div class="experiment-micro-list">
-              <!-- data-mode chooses the renderer; data-shape and accent values tune each small field. -->
-              <a class="experiment-micro-card micro-mode-cluster" href="/experiments/hypnotic-clock/" data-dot-field data-mode="color-cluster" data-shape="circle" data-accent-r="60" data-accent-g="255" data-accent-b="137">
-                <div class="experiment-micro-viz" aria-hidden="true">
-                  <canvas class="experiment-dot-canvas" data-dot-canvas></canvas>
-                </div>
-                <div class="experiment-micro-meta">
-                  <span>motion / time</span>
-                  <strong>Hypnotic Clock</strong>
-                </div>
-              </a>
+              {homeExperiments.map((entry) => {
+                const preview = entry.data.homePreview;
+                if (!preview) return null;
 
-              <a class="experiment-micro-card micro-mode-outline" href="/experiments/vs-code-theme/" data-dot-field data-mode="outline-repel" data-shape="circle" data-accent-r="125" data-accent-g="211" data-accent-b="252">
-                <div class="experiment-micro-viz" aria-hidden="true">
-                  <canvas class="experiment-dot-canvas" data-dot-canvas></canvas>
-                </div>
-                <div class="experiment-micro-meta">
-                  <span>theme / tooling</span>
-                  <strong>VS Code Theme</strong>
-                </div>
-              </a>
+                const [accentR, accentG, accentB] = preview.accent;
 
-              <a class="experiment-micro-card micro-mode-ascii" href="/experiments/homage-to-k10k/" data-dot-field data-mode="ascii-reveal" data-label="K10K" data-accent-r="255" data-accent-g="204" data-accent-b="102">
-                <div class="experiment-micro-viz" aria-hidden="true">
-                  <canvas class="experiment-dot-canvas" data-dot-canvas></canvas>
-                </div>
-                <div class="experiment-micro-meta">
-                  <span>archive / homage</span>
-                  <strong>Homage to K10k</strong>
-                </div>
-              </a>
+                return (
+                  <a
+                    class={`experiment-micro-card ${previewModeClasses[preview.mode]}`}
+                    href={`/experiments/${entry.slug}/`}
+                    data-dot-field
+                    data-mode={preview.mode}
+                    data-shape={preview.shape}
+                    data-label={preview.label}
+                    data-accent-r={accentR}
+                    data-accent-g={accentG}
+                    data-accent-b={accentB}
+                  >
+                    <div class="experiment-micro-viz" aria-hidden="true">
+                      <canvas class="experiment-dot-canvas" data-dot-canvas></canvas>
+                    </div>
+                    <div class="experiment-micro-meta">
+                      <span>{preview.kicker ?? entry.data.tags.slice(0, 2).join(" / ")}</span>
+                      <strong>{entry.data.title}</strong>
+                    </div>
+                  </a>
+                );
+              })}
             </div>
           </div>
         </article>
 
-        <article class="direction-option theme-atlas">
-          <div class="direction-option-head">
-            <p class="panel-kicker">
-              <span>03</span>
-              <span>Junk drawer</span>
-            </p>
-            <a class="text-link" href="/artifacts/">open artifacts</a>
-          </div>
-
-          <div class="board-preview theme-atlas board-atlas">
-            <div class="board-main">
+        <article class="home-panel home-panel-artifacts">
+          <div class="home-panel-preview">
+            <div class="home-panel-intro">
               <div>
                 <h2>Artifacts</h2>
                 <p>
-                  A home for the useful-but-hard-to-classify: annotated links, assets,
-                  reference sets, type samples, textures, and future digital goods.
+                  Junk drawer with links.
                 </p>
               </div>
             </div>
 
-            <div class="direction-specimen specimen-atlas" aria-hidden="true">
-              <article class="specimen-artifact specimen-artifact-1">
-                <span>reference</span>
-                <strong>Link Sets</strong>
-              </article>
-              </div>
+            <div class="home-entry-list" aria-label="Recent artifacts">
+              {homeArtifacts.map((entry) => (
+                <article class="home-entry">
+                  <span>{formatEntryDate(entry.data.date)}</span>
+                  <a href={`/artifacts/${entry.slug}/`} class="home-entry-link">{entry.data.title}</a>
+                  {entry.data.subtitle && <p>{entry.data.subtitle}</p>}
+                </article>
+              ))}
             </div>
 
-            <div class="board-notes">
+            <div class="home-note-grid">
               <p>More organized than a feed.</p>
               <p>Less formal than a post.</p>
               <p>A place for useful fragments to accumulate.</p>
@@ -249,24 +230,18 @@ const githubContributions = await getGitHubContributions({
 
     <section class="content-map">
       <div>
-        <p class="panel-kicker"><span>model</span><span>collections</span></p>
-        <h2>Early site map</h2>
+        <h2>More pages</h2>
       </div>
       <div class="map-grid">
         <a href="/notes/">
           <span>01</span>
-          <strong>Notes</strong>
-          <p>MDX essays, field notes, annotated ideas, and durable writing.</p>
-        </a>
-        <a href="/experiments/">
-          <span>02</span>
-          <strong>Experiments</strong>
-          <p>React islands, one-off tools, weird demos, and workbench pages.</p>
+          <strong>About</strong>
+          <p>Company information and mission.</p>
         </a>
         <a href="/artifacts/">
           <span>03</span>
-          <strong>Artifacts</strong>
-          <p>Curated references, useful scraps, visual fragments, and small kept objects.</p>
+          <strong>Contact</strong>
+          <p>Get in touch.</p>
         </a>
       </div>
     </section>
@@ -295,21 +270,21 @@ const githubContributions = await getGitHubContributions({
     },
     "outline-repel": {
       gap: 10,
-      radius: 0.12,
+      radius: 0.25,
       pull: -9,
       minSignal: 0.18,
-      fillAt: 0.42,
-      size: { base: 3, pressure: 3.4 },
-      ridge: { y: 0.34, wave: 0.08, falloff: 6, strength: 0.78 },
-      massB: { x: 0.84, y: 0.64, falloff: 2.4, strength: 0.54 }
+      fillAt: 0.22,
+      size: { base: 2, pressure: 2.2 },
+      ridge: { y: 0.34, wave: 0.18, falloff: 5, strength: 0.38 },
+      massB: { x: 0.84, y: 0.84, falloff: 4, strength: 0.24 }
     },
     "ascii-reveal": {
       gap: 12,
-      radius: 0.52,
+      radius: 0.32,
       labelRow: 0.54,
       bandY: 0.55,
-      bandFalloff: 2.4,
-      revealBoost: 1.2
+      bandFalloff: 4.4,
+      revealBoost: 0.8
     }
   };
 

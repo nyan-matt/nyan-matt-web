@@ -33,7 +33,7 @@ const { Content } = await render(entry);
       <header class="entry-terminal-hero">
         <div>
           <a class="text-link" href="/artifacts/">back to artifacts</a>
-          <p class="eyebrow">artifact / {formatEntryDate(entry.data.date)}</p>
+          <p class="eyebrow">Last updated {formatEntryDate(entry.data.date)}</p>
           <h1>{entry.data.title}</h1>
           {entry.data.subtitle && <p class="entry-subtitle">{entry.data.subtitle}</p>}
         </div>

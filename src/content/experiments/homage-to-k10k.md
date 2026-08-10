@@ -2,6 +2,12 @@
 title: "Homage to K10k"
 subtitle: "Figma recreation of K10k front page"
 date: 2023-08-05
+homePreview:
+  enabled: true
+  mode: "ascii-reveal"
+  kicker: "archive / homage"
+  label: "K10K"
+  accent: [255, 204, 102]
 tags: ["figma", "web design", "retro"]
 ---
 

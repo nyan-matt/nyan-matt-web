@@ -2,6 +2,7 @@
 title: "Design Systems Need a Planning Layer"
 subtitle: "Patterns as a planning primitive"
 date: 2026-08-03
+featured: true
 tags: ["design", "design systems", "ai", "ai process"]
 ---
 

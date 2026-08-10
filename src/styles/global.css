@@ -586,7 +586,7 @@ nav a:hover {
 .large-panel,
 .small-panel,
 .decision-panel,
-.direction-board,
+.home-panel,
 .map-grid a,
 .post-page,
 .callout {
@@ -741,93 +741,33 @@ nav a:hover {
   letter-spacing: 0;
 }
 
-.direction-board {
+.home-panel-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
-  overflow: visible;
-  background: transparent;
-  border: 0;
-  border-radius: 0;
 }
 
-.direction-option {
+.home-panel {
+  --active: var(--green);
   min-width: 0;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: var(--panel-fill);
   backdrop-filter: blur(3px);
   overflow: hidden;
 }
 
-.direction-option-head {
-  min-height: 86px;
-  display: grid;
-  gap: 16px;
-  align-content: space-between;
-  padding: 16px;
-  border-bottom: 1px solid var(--line);
-}
-
-.direction-option-head .text-link {
-  width: fit-content;
-}
-
-.board-controls {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  border-bottom: 1px solid var(--line);
-}
-
-.direction-tab {
-  min-height: 54px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  border: 0;
-  border-right: 1px solid var(--line);
-  background: var(--panel-fill-solid);
-  cursor: pointer;
-  font-weight: 750;
-}
-
-.direction-tab:last-child {
-  border-right: 0;
-}
-
-.direction-tab span {
-  color: var(--muted);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-}
-
-.direction-tab[aria-selected="true"] {
-  background: var(--panel-2);
-  color: var(--active, var(--green));
-}
-
-.board-preview {
-  --active: var(--green);
+.home-panel-preview {
   padding: 24px;
-}
-
-.board-notebook {
   background: var(--panel-fill);
 }
 
-.board-atlas {
-  background:
-    linear-gradient(135deg, rgba(255, 204, 102, 0.1), transparent 46%),
-    linear-gradient(45deg, rgba(255, 107, 107, 0.06), transparent 58%),
-    var(--panel-fill-solid);
-}
-
-.theme-notebook {
+.home-panel-notes {
   --active: var(--cyan);
 }
 
-.theme-atlas {
+.home-panel-experiments {
+  --active: var(--green);
+}
+
+.home-panel-artifacts {
   --active: var(--amber);
 }
 
@@ -841,18 +781,15 @@ nav a:hover {
 .panel-kicker span:first-child::after {
   content: "*";
   display: inline-block;
-  /* width: 8px;
-  height: 1px; */
   margin-left: 8px;
   vertical-align: middle;
-  /* background: var(--faint); */
 }
 
-.board-main {
+.home-panel-intro {
   display: block;
 }
 
-.board-main h2,
+.home-panel-intro h2,
 .large-panel h2,
 .small-panel h2 {
   margin: 0 0 12px;
@@ -861,7 +798,7 @@ nav a:hover {
   letter-spacing: 0;
 }
 
-.board-main p,
+.home-panel-intro p,
 .large-panel p,
 .small-panel p,
 .proof-card p,
@@ -883,7 +820,6 @@ nav a:hover {
   text-transform: uppercase;
 }
 
-.signal-grid,
 .pixel-field {
   display: grid;
   grid-template-columns: repeat(24, 1fr);
@@ -891,77 +827,9 @@ nav a:hover {
   margin: 28px 0;
 }
 
-.signal-grid span,
 .pixel-field span {
   aspect-ratio: 1;
   background: var(--active);
-}
-
-.direction-specimen {
-  margin: 28px 0;
-}
-
-.specimen-terminal {
-  display: grid;
-  grid-template-columns: 1.4fr 0.8fr;
-  gap: 1px;
-  border: 1px solid var(--line);
-  background: var(--line);
-}
-
-.specimen-terminal-main,
-.specimen-terminal-side,
-.specimen-notebook aside,
-.specimen-notebook article,
-.specimen-artifact {
-  background: var(--panel-fill-solid);
-}
-
-.specimen-terminal-main,
-.specimen-terminal-side {
-  padding: 16px;
-}
-
-.specimen-terminal-main span,
-.specimen-terminal-side p,
-.specimen-notebook span,
-.specimen-artifact span {
-  color: var(--muted);
-  font-family: var(--font-mono);
-  font-size: 0.67rem;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.specimen-terminal-main strong {
-  display: block;
-  margin-top: 8px;
-  color: var(--active);
-  font-family: var(--font-mono);
-  font-size: 1rem;
-}
-
-.specimen-pixels {
-  display: grid;
-  grid-template-columns: repeat(24, 1fr);
-  gap: 4px;
-  margin-top: 28px;
-}
-
-.specimen-pixels i {
-  aspect-ratio: 1;
-  background: var(--active);
-}
-
-.specimen-terminal-side {
-  display: grid;
-  align-content: space-between;
-}
-
-.specimen-terminal-side p {
-  margin: 0;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--line);
 }
 
 .experiment-micro-list {
@@ -987,7 +855,7 @@ nav a:hover {
 
 .experiment-micro-card:hover {
   border-color: color-mix(in srgb, var(--active) 58%, var(--line));
-  transform: translateY(-2px);
+  /* transform: translateY(-2px); */
 }
 
 .experiment-micro-viz {
@@ -1023,8 +891,14 @@ nav a:hover {
 
 .experiment-micro-meta strong {
   color: var(--ink);
-  font-size: 1.35rem;
+  font-size: 1.25rem;
   line-height: 1.05;
+  font-weight: 500;
+  transition: color 180ms ease;
+}
+
+.experiment-micro-card:hover .experiment-micro-meta strong {
+  color: var(--active);
 }
 
 .micro-mode-outline .experiment-micro-viz {
@@ -1045,101 +919,52 @@ nav a:hover {
   opacity: 0.92;
 }
 
-.specimen-notebook {
+.home-entry-list {
   display: grid;
-  grid-template-columns: 220px minmax(0, 1fr);
-  gap: 8px;
-  align-items: stretch;
-  padding: 0;
+  gap: 16px;
+  margin: 28px 0;
 }
 
-.direction-option .specimen-notebook,
-.direction-option .specimen-atlas {
-  grid-template-columns: 1fr;
-}
-
-.direction-option .specimen-notebook h3 {
-  font-size: 1.75rem;
-}
-
-.direction-option .specimen-artifact {
-  min-height: 130px;
-  margin-top: 0;
-}
-
-.specimen-notebook aside {
-  padding: 8px 16px; 
+.home-entry {
+  padding: 8px 16px;
   border-left: 2px solid var(--active);
+  background: var(--panel-fill);
 }
 
-.specimen-notebook article {
-  max-width: 760px;
-  padding: 20px 0;
+.home-entry span {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 400;
+  text-transform: uppercase;
 }
 
-.specimen-notebook h3 {
-  margin: 12px 0;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 2.4rem;
+.home-entry-link {
+  display: block;
+  margin: 8px 0;
+  padding-bottom: 4px;
+  color: var(--ink);
+  font-size: 1.25rem;
   font-weight: 500;
   line-height: 1.05;
 }
 
-.specimen-notebook p {
-  color: var(--text-soft);
-  line-height: 1;
+.home-entry-link:hover {
+  color: var(--active);
+}
+
+.home-panel .content-tags small {
+  border-color: color-mix(in srgb, var(--active) 46%, var(--line));
+  color: var(--active);
+}
+
+.home-entry p {
   margin: 8px 0;
+  color: var(--text-soft);
+  line-height: 1.2;
 }
 
-.specimen-atlas {
-  position: relative;
-  min-height: 310px;
-  display: grid;
-  grid-template-columns: 1fr 0.82fr 1.1fr;
-  gap: 16px;
-  align-items: start;
-}
-
-.specimen-artifact {
-  min-height: 160px;
-  padding: 16px;
-  border: 1px solid color-mix(in srgb, var(--active) 36%, var(--line));
-  box-shadow: 9px 9px 0 rgba(255, 204, 102, 0.08);
-}
-
-.specimen-artifact strong {
-  display: block;
-  margin-top: 40px;
-  font-size: 1.4rem;
-  line-height: 1.05;
-}
-
-.specimen-artifact-2 {
-  margin-top: 72px;
-  border-color: color-mix(in srgb, var(--cyan) 42%, var(--line));
-}
-
-.specimen-artifact-3 {
-  margin-top: 28px;
-  border-color: color-mix(in srgb, var(--red) 40%, var(--line));
-}
-
-.specimen-orbit {
-  position: absolute;
-  right: 8%;
-  bottom: 6px;
-  display: grid;
-  grid-template-columns: repeat(3, 34px);
-  gap: 8px;
-}
-
-.specimen-orbit span {
-  height: 8px;
-  border: 1px solid var(--line);
-  background: var(--active);
-}
-
-.board-notes {
+.home-note-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1px;
@@ -1147,7 +972,7 @@ nav a:hover {
   background: var(--line);
 }
 
-.board-notes p {
+.home-note-grid p {
   min-height: 92px;
   margin: 0;
   padding: 16px;
@@ -2162,7 +1987,7 @@ nav a:hover {
   .collection-card h2,
   .post-page h1,
   .post-page h2,
-  .board-main h2,
+  .home-panel-intro h2,
   .large-panel h2,
   .small-panel h2,
   .terminal-buffer h2,
@@ -2204,13 +2029,13 @@ nav a:hover {
     min-height: 280px;
   }
 
-  .board-main,
-  .direction-board,
+  .home-panel-intro,
+  .home-panel-grid,
   .mockup-grid,
   .map-grid,
   .collection-list,
   .collection-list-terminal,
-  .board-notes,
+  .home-note-grid,
   .decision-panel ul {
     grid-template-columns: 1fr;
   }
@@ -2223,22 +2048,10 @@ nav a:hover {
     position: static;
   }
 
-  .board-controls {
-    grid-template-columns: 1fr;
-  }
-
-  .direction-tab {
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
-  }
-
   .large-panel {
     grid-column: span 1;
   }
 
-  .specimen-terminal,
-  .specimen-notebook,
-  .specimen-atlas,
   .terminal-hero,
   .notebook-hero,
   .notebook-spread,
@@ -2365,17 +2178,13 @@ nav a:hover {
   .collection-card h2,
   .post-page h1,
   .post-page h2,
-  .board-main h2,
+  .home-panel-intro h2,
   .large-panel h2,
   .small-panel h2,
   .terminal-buffer h2,
   .notebook-article h2,
   .artifact-feature h2 {
     font-size: 2.3rem;
-  }
-
-  .signal-grid {
-    grid-template-columns: repeat(12, 1fr);
   }
 
   .pixel-field {
@@ -2387,21 +2196,13 @@ nav a:hover {
     grid-template-columns: 1fr;
   }
 
-  .board-preview,
+  .home-panel-preview,
   .terminal-buffer,
   .terminal-spend,
   .terminal-tile,
   .artifact-feature,
   .artifact-card {
     padding: 16px;
-  }
-
-  .specimen-pixels {
-    grid-template-columns: repeat(12, 1fr);
-  }
-
-  .specimen-artifact strong {
-    margin-top: 24px;
   }
 
   .u-split-50 {
@@ -2438,15 +2239,10 @@ nav a:hover {
 .feed-scroll span,
 .instrument-row strong,
 .ledger strong,
-.direction-tab span,
 .text-link,
-.specimen-terminal-main span,
-.specimen-terminal-side p,
-.specimen-notebook span,
-.specimen-artifact span,
+.home-entry span,
 .experiment-micro-meta span,
-.specimen-terminal-main strong,
-.board-notes p,
+.home-note-grid p,
 .github-calendar-head span,
 .github-rate,
 .github-calendar-scale,
