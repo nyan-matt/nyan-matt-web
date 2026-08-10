@@ -1,5 +1,11 @@
 [
   {
+    "date": "2026-08-10T15:27:50.210Z",
+    "id": "wip-status",
+    "title": "WIP status",
+    "body": "This site is still a work-in-progress with lots of issues to work through from design to content to mobile views. Hoping to solidify in the coming weeks."
+  },
+  {
     "date": "2026-08-10T12:56:57.812Z",
     "id": "dotgui-interface-format",
     "title": "dotGUI - Interface format",

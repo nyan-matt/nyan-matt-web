@@ -546,7 +546,7 @@ nav a:hover {
 }
 
 .hero h1 {
-  max-width: 1200px;
+  max-width: 1080px;
   font-size: 5.15rem;
   position: relative;
   color: var(--ink);
@@ -604,7 +604,7 @@ nav a:hover {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
   overflow: hidden;
-  background: var(--feed-fill-soft)
+  background: var(--panel-fill)
 }
 
 .feed-head {
