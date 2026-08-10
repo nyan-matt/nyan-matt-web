@@ -1,4 +1,4 @@
-import { getStore } from "@netlify/blobs";
+import { connectLambda, getStore } from "@netlify/blobs";
 import { isFeedItemArray, sortFeedItems, type FeedResponse } from "../../src/lib/feed";
 
 const headers = {
@@ -7,6 +7,7 @@ const headers = {
 } as const;
 
 type FunctionEvent = {
+  blobs?: string;
   body: string | null;
   headers: Record<string, string | undefined>;
   httpMethod: string;
@@ -74,6 +75,7 @@ export async function handler(event: FunctionEvent): Promise<FunctionResponse> {
   }
 
   const sortedItems = sortFeedItems(items);
+  connectLambda(event as { blobs: string; headers: Record<string, string> });
   const store = getStore("site-feed");
   const writeResult = await store.setJSON("items", sortedItems);
   const payload: FeedResponse & { etag?: string; modified: boolean } = {

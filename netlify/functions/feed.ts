@@ -1,4 +1,4 @@
-import { getStore } from "@netlify/blobs";
+import { connectLambda, getStore } from "@netlify/blobs";
 import { feedItems } from "../../src/data/feed";
 import { isFeedItem, sortFeedItems, type FeedResponse } from "../../src/lib/feed";
 
@@ -30,12 +30,13 @@ function fallbackResponse(): FunctionResponse {
   return jsonResponse(payload);
 }
 
-export async function handler(event: { httpMethod: string }): Promise<FunctionResponse> {
+export async function handler(event: { blobs?: string; headers: Record<string, string>; httpMethod: string }): Promise<FunctionResponse> {
   if (event.httpMethod !== "GET") {
     return jsonResponse({ error: "Method not allowed" }, 405);
   }
 
   try {
+    connectLambda(event as { blobs: string; headers: Record<string, string> });
     const store = getStore("site-feed");
     const blobItems = await store.get("items", { type: "json" });
 
