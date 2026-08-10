@@ -1,8 +1,10 @@
 ---
 import { getCollection } from "astro:content";
 import GitHubContributionCalendar from "../components/GitHubContributionCalendar.astro";
+import { feedItems } from "../data/feed";
 import { getGitHubContributions } from "../lib/githubContributions";
 import { formatEntryDate, selectFeaturedThenLatest } from "../lib/contentMeta";
+import { formatFeedDate, renderFeedMarkdown, sortFeedItems } from "../lib/feed";
 import SiteLayout from "../layouts/SiteLayout.astro";
 
 const githubContributions = await getGitHubContributions({
@@ -16,6 +18,7 @@ const homeExperiments = selectFeaturedThenLatest(
   (await getCollection("experiments")).filter((entry) => entry.data.homePreview?.enabled),
   3
 );
+const homeFeedItems = sortFeedItems(feedItems);
 const previewModeClasses = {
   "ascii-reveal": "micro-mode-ascii",
   "color-cluster": "micro-mode-cluster",
@@ -53,7 +56,7 @@ const previewModeClasses = {
     <header class="topbar">
       <a class="brand" href="/">
         <span class="brand-mark" aria-hidden="true"></span>
-        <span>Nyan Matt Lab</span>
+        <span>Nyan Matt</span>
       </a>
       <nav aria-label="Primary">
         <a href="/notes/">Notes</a>
@@ -64,7 +67,7 @@ const previewModeClasses = {
 
     <section class="hero">
       <div class="hero-copy">
-        <p class="eyebrow">exploration space</p>
+        <p class="eyebrow">Eyebrows are like UI em dashes</p>
         <h1 data-text="Designer specializing in design systems, engineering, and AI-assisted workflows.">Designer specializing in design systems, engineering, and AI-assisted workflows.</h1>
         <p>
           Exploration space for product design, front-end engineering, and AI development. 
@@ -76,43 +79,16 @@ const previewModeClasses = {
           <p class="panel-kicker"><span>feed</span><span>current transmissions</span></p>
           <strong>scroll</strong>
         </div>
-        <div class="feed-scroll">
-          <article>
-            <span>071101 - 09:04 / note</span>
-            <h2>Create VS code theme.</h2>
-            <p>Todo: create a theme or extension for VS code or Terminal - post it when complete.</p>
-          </article>
-          <article>
-            <span>071101 - 10:22 :: experiment</span>
-            <h2>Get contribution heatmap.</h2>
-            <p>Fetch GraphQl contribiutions with PAT and render in one of the cards below.</p>
-          </article>
-          <article>
-            <span>071101 - 12:09 > link</span>
-            <h2>Hypnotic clock.</h2>
-            <p>Small experiments like this. How to embed? What happens with long content? does it wrap? get clipped? is ti respnspvie does it clip? what ahppens to a long listing?</p>
-            <p>Small experiments like this. How to embed? What happens with long content? does it wrap? get clipped? is ti respnspvie does it clip? what ahppens to a long listing?</p>
-          </article>
-          <article>
-            <span>071101 - 13:45 –— —___ index</span>
-            <h2>Figma Plugins</h2>
-            <p>Highlight some Figma plugin work, perhaps skills or custom shaders.</p>
-          </article>
-          <article>
-            <span>071101 - 13:45 / index</span>
-            <h2>Meme collection</h2>
-            <p>Random meme collection might be cool.</p>
-          </article>
-          <article>
-            <span>071101 - 13:45 / index</span>
-            <h2>Figma Plugins</h2>
-            <p>Highlight some Figma plugin work, perhaps skills or custom shaders.</p>
-          </article>
-          <article>
-            <span>071101 - 13:45 / index</span>
-            <h2>Figma Plugins</h2>
-            <p>Highlight some Figma plugin work, perhaps skills or custom shaders.</p>
-          </article>
+        <div class="feed-scroll" data-feed-scroll>
+          {homeFeedItems.map((item) => (
+            <article>
+              <span>{formatFeedDate(item.date)}</span>
+              <h2>
+                {item.href ? <a href={item.href}>{item.title}</a> : item.title}
+              </h2>
+              {item.body && <p set:html={renderFeedMarkdown(item.body)} />}
+            </article>
+          ))}
         </div>
       </aside>
     </section>
@@ -233,12 +209,17 @@ const previewModeClasses = {
         <h2>More pages</h2>
       </div>
       <div class="map-grid">
-        <a href="/notes/">
+        <a href="/">
           <span>01</span>
           <strong>About</strong>
-          <p>Company information and mission.</p>
+          <p>Boring stuff.</p>
         </a>
-        <a href="/artifacts/">
+        <a href="/">
+          <span>02</span>
+          <strong>Hire</strong>
+          <p>Project work?</p>
+        </a>
+        <a href="/">
           <span>03</span>
           <strong>Contact</strong>
           <p>Get in touch.</p>
@@ -249,6 +230,100 @@ const previewModeClasses = {
 </SiteLayout>
 
 <script>
+  const feedScroll = document.querySelector("[data-feed-scroll]");
+  const feedDateFormatter = new Intl.DateTimeFormat("en", {
+    day: "2-digit",
+    hour: "2-digit",
+    hour12: false,
+    minute: "2-digit",
+    month: "2-digit"
+  });
+
+  function escapeFeedHtml(value) {
+    return String(value)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#39;");
+  }
+
+  function isSafeFeedHref(href) {
+    return href.startsWith("/") || href.startsWith("https://") || href.startsWith("http://");
+  }
+
+  function renderFeedBody(value) {
+    const escaped = escapeFeedHtml(value);
+
+    return escaped.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_match, label, href) => {
+      if (!isSafeFeedHref(href)) return label;
+
+      return `<a href="${href}">${label}</a>`;
+    });
+  }
+
+  function formatFeedItemDate(value) {
+    return feedDateFormatter.format(new Date(value)).replace(",", " -");
+  }
+
+  function isFeedItem(value) {
+    return value
+      && typeof value.id === "string"
+      && typeof value.date === "string"
+      && typeof value.title === "string";
+  }
+
+  function renderFeedItems(items) {
+    if (!feedScroll || items.length === 0) return;
+
+    feedScroll.replaceChildren(...items.map((item) => {
+      const article = document.createElement("article");
+      const meta = document.createElement("span");
+      const title = document.createElement("h2");
+
+      meta.textContent = formatFeedItemDate(item.date);
+
+      if (item.href) {
+        const link = document.createElement("a");
+        link.href = item.href;
+        link.textContent = item.title;
+        title.append(link);
+      } else {
+        title.textContent = item.title;
+      }
+
+      article.append(meta, title);
+
+      if (item.body) {
+        const body = document.createElement("p");
+        body.innerHTML = renderFeedBody(item.body);
+        article.append(body);
+      }
+
+      return article;
+    }));
+  }
+
+  async function refreshFeed() {
+    if (!feedScroll) return;
+
+    try {
+      const response = await fetch("/.netlify/functions/feed", {
+        headers: { accept: "application/json" }
+      });
+      if (!response.ok) return;
+
+      const payload = await response.json();
+      if (!payload || !Array.isArray(payload.items)) return;
+
+      renderFeedItems(payload.items.filter(isFeedItem));
+    } catch {
+      // The build-time feed is the fallback when the live function is unavailable.
+    }
+  }
+
+  refreshFeed();
+
   const dotCanvases = document.querySelectorAll("[data-dot-canvas]");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
@@ -256,7 +331,7 @@ const previewModeClasses = {
   const ease = (value) => value * value * (3 - 2 * value);
   const asciiChars = ".:/\\|+-<>[]01";
 
-  // Main tuning surface for the three preview effects.
+  // Main editor for the three preview effects.
   // radius controls the cursor's magnetic/color field; smaller values make the active area tighter.
   const fieldPresets = {
     "color-cluster": {

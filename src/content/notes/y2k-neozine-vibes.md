@@ -15,3 +15,5 @@ If you were around the design community back-in-the-day, maybe you feel a bit of
 
 I hope you like it, or at the very least find something interesting.
 
+Check out the [Homage to K10k](/experiments/homage-to-k10k)
+

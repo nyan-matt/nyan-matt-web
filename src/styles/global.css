@@ -671,11 +671,27 @@ nav a:hover {
   line-height: 1.08;
 }
 
+.feed-scroll h2 a {
+  color: inherit;
+}
+
+.feed-scroll h2 a:hover,
+.feed-scroll p a:hover {
+  color: var(--green);
+}
+
 .feed-scroll p {
   margin: 8px 0 0;
   color: var(--text-feed);
   font-size: 14px;
   line-height: 1.48;
+}
+
+.feed-scroll p a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--green) 48%, transparent);
+  text-underline-offset: 3px;
 }
 
 .instrument-row,
