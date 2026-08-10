@@ -1,5 +1,12 @@
 [
   {
+    "date": "2026-08-10T12:56:57.812Z",
+    "id": "dotgui-interface-format",
+    "title": "dotGUI - Interface format",
+    "body": "Interesting concept. Site is also well designed.",
+    "href": "https://dotgui.org/"
+  },
+  {
     "body": "The [VS Code theme](/experiments/vs-code-theme/) now has a local VSIX download and install notes.",
     "date": "2026-08-09T09:04:00-05:00",
     "href": "/experiments/vs-code-theme/",

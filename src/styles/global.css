@@ -475,10 +475,7 @@ button {
   width: 22px;
   aspect-ratio: 1;
   display: inline-block;
-  background:
-    linear-gradient(90deg, transparent 20%, var(--ink) 20% 36%, transparent 36% 64%, var(--ink) 64% 80%, transparent 80%),
-    linear-gradient(transparent 20%, var(--ink) 20% 36%, transparent 36% 64%, var(--ink) 64% 80%, transparent 80%);
-  opacity: 0.85;
+  margin-top:4px;
 }
 
 nav {
@@ -549,7 +546,7 @@ nav a:hover {
 }
 
 .hero h1 {
-  max-width: 980px;
+  max-width: 1200px;
   font-size: 5.15rem;
   position: relative;
   color: var(--ink);
