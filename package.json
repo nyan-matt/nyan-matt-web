@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
+    "feed:seed": "node scripts/seed-feed.mjs",
     "build": "astro build",
     "preview": "astro preview"
   },

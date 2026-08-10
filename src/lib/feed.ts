@@ -14,8 +14,25 @@ function escapeHtml(value: string): string {
     .replaceAll("'", "&#39;");
 }
 
-function isSafeHref(href: string): boolean {
+export function isSafeFeedHref(href: string): boolean {
   return href.startsWith("/") || href.startsWith("https://") || href.startsWith("http://");
+}
+
+export function isFeedItem(value: unknown): value is FeedItem {
+  if (!value || typeof value !== "object") return false;
+
+  const item = value as Partial<FeedItem>;
+  return typeof item.id === "string"
+    && typeof item.date === "string"
+    && !Number.isNaN(new Date(item.date).valueOf())
+    && typeof item.title === "string"
+    && (item.body === undefined || typeof item.body === "string")
+    && (item.href === undefined || (typeof item.href === "string" && isSafeFeedHref(item.href)))
+    && (item.pinned === undefined || typeof item.pinned === "boolean");
+}
+
+export function isFeedItemArray(value: unknown): value is FeedItem[] {
+  return Array.isArray(value) && value.every(isFeedItem);
 }
 
 export function formatFeedDate(value: string): string {
@@ -34,7 +51,7 @@ export function renderFeedMarkdown(value: string): string {
   const escaped = escapeHtml(value);
 
   return escaped.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_match, label: string, href: string) => {
-    if (!isSafeHref(href)) return label;
+    if (!isSafeFeedHref(href)) return label;
 
     return `<a href="${href}">${label}</a>`;
   });

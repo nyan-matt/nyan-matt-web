@@ -1,6 +1,6 @@
 import { getStore } from "@netlify/blobs";
-import { feedItems, type FeedItem } from "../../src/data/feed";
-import { sortFeedItems, type FeedResponse } from "../../src/lib/feed";
+import { feedItems } from "../../src/data/feed";
+import { isFeedItem, sortFeedItems, type FeedResponse } from "../../src/lib/feed";
 
 const headers = {
   "cache-control": "public, max-age=60, stale-while-revalidate=300",
@@ -12,18 +12,6 @@ type FunctionResponse = {
   headers: typeof headers;
   statusCode: number;
 };
-
-function isFeedItem(value: unknown): value is FeedItem {
-  if (!value || typeof value !== "object") return false;
-
-  const item = value as Partial<FeedItem>;
-  return typeof item.id === "string"
-    && typeof item.date === "string"
-    && typeof item.title === "string"
-    && (item.body === undefined || typeof item.body === "string")
-    && (item.href === undefined || typeof item.href === "string")
-    && (item.pinned === undefined || typeof item.pinned === "boolean");
-}
 
 function jsonResponse(payload: unknown, statusCode = 200): FunctionResponse {
   return {
