@@ -1,0 +1,39 @@
+---
+type NavItem = {
+  href: string;
+  label: string;
+  section: string;
+};
+
+const navItems: NavItem[] = [
+  { href: "/notes/", label: "Notes", section: "notes" },
+  { href: "/experiments/", label: "Experiments", section: "experiments" },
+  { href: "/artifacts/", label: "Artifacts", section: "artifacts" }
+];
+
+const pathname = Astro.url.pathname;
+const activeSection = navItems.find((item) => {
+  const hrefWithoutTrailingSlash = item.href.replace(/\/$/, "");
+  return pathname === hrefWithoutTrailingSlash || pathname.startsWith(item.href);
+})?.section;
+---
+
+<header class="topbar">
+  <a class="brand" href="/">
+    <span class="brand-mark" aria-hidden="true">
+      <img src="/assets/pop-tart.png" alt="" />
+    </span>
+    <span>Nyan Matt</span>
+  </a>
+  <nav aria-label="Primary">
+    {navItems.map((item) => (
+      <a
+        class:list={[{ "is-active": activeSection === item.section }]}
+        href={item.href}
+        aria-current={activeSection === item.section ? "page" : undefined}
+      >
+        {item.label}
+      </a>
+    ))}
+  </nav>
+</header>

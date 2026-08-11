@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import SiteHeader from "../../components/SiteHeader.astro";
 import SiteLayout from "../../layouts/SiteLayout.astro";
 import { formatEntryDate, sortByDate } from "../../lib/contentMeta";
 
@@ -8,17 +9,7 @@ const notes = sortByDate(await getCollection("notes"));
 
 <SiteLayout title="Field Notes - Nyan Matt Lab">
   <main class="mockup-page collection-page collection-notes">
-    <header class="mockup-topbar">
-      <a class="brand" href="/">
-        <span class="brand-mark" aria-hidden="true"></span>
-        <span>Nyan Matt</span>
-      </a>
-      <nav aria-label="Primary">
-        <a href="/notes/">Notes</a>
-        <a href="/experiments/">Experiments</a>
-        <a href="/artifacts/">Artifacts</a>
-      </nav>
-    </header>
+    <SiteHeader />
 
     <section class="collection-hero collection-hero-terminal">
       <div>

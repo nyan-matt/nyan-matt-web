@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import GitHubContributionCalendar from "../components/GitHubContributionCalendar.astro";
+import SiteHeader from "../components/SiteHeader.astro";
 import { feedItems } from "../data/feed";
 import { getGitHubContributions } from "../lib/githubContributions";
 import { formatEntryDate, selectFeaturedThenLatest } from "../lib/contentMeta";
@@ -32,38 +33,22 @@ const previewModeClasses = {
 >
   <div class="page-spine" aria-hidden="true">
     <div class="spine-rail">
-      <span>issue 00</span>
-      <span>nyan matt lab</span>
+      <span>All that is gold does not glitter, Not all those who wander are lost; The old that is strong does not wither, Deep roots are not reached by the frost.
+      From the ashes a fire shall be woken, A light from the shadows shall spring; Renewed shall be blade that was broken, The crownless again shall be king. - Aragorn, probably</span>
     </div>
     <div class="spine-collage">
       <i></i>
       <i></i>
       <i></i>
-      <i></i>
+
     </div>
   </div>
 
   <div class="page-abstract is-asset" aria-hidden="true">
-    <i></i>
-    <i></i>
-    <i></i>
-    <i></i>
-    <i></i>
-    <i></i>
   </div>
 
   <main class="site-shell">
-    <header class="topbar">
-      <a class="brand" href="/">
-        <span class="brand-mark" aria-hidden="true"><img src="/assets/pop-tart.png" alt="Pop Tart" /></span>
-        <span>Nyan Matt</span>
-      </a>
-      <nav aria-label="Primary">
-        <a href="/notes/">Notes</a>
-        <a href="/experiments/">Experiments</a>
-        <a href="/artifacts/">Artifacts</a>
-      </nav>
-    </header>
+    <SiteHeader />
 
     <section class="hero">
       <div class="hero-copy">
@@ -94,9 +79,7 @@ const previewModeClasses = {
     </section>
 
     <section class="section-band" id="collections">
-      <div class="section-heading">
-        <p class="eyebrow">three working shelves</p>
-      </div>
+      
       <section class="home-panel-grid" aria-label="Site collection overview">
         <article class="home-panel home-panel-notes">
           <div class="home-panel-preview">

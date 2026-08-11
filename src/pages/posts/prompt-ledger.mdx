@@ -4,19 +4,11 @@ description: A sample MDX post showing the intended writing texture for the site
 ---
 
 import SiteLayout from "../../layouts/SiteLayout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
 
 <SiteLayout title="Prompt Ledger - Nyan Matt Lab">
   <main className="site-shell">
-    <header className="topbar">
-      <a className="brand" href="/">
-        <span className="brand-mark" aria-hidden="true"></span>
-        <span>Nyan Matt Lab</span>
-      </a>
-      <nav aria-label="Primary">
-        <a href="/experiments/">Experiments</a>
-        <a href="/">Mockups</a>
-      </nav>
-    </header>
+    <SiteHeader />
 
     <article className="post-page">
       <p className="eyebrow">sample post / mdx</p>

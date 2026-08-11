@@ -274,11 +274,11 @@ body {
   height: 260px;
   top: 118px;
   left: -66px;
-  background:
+   background:
     linear-gradient(135deg, transparent 0 31%, var(--spine-slice-red) 31% 43%, transparent 43%),
-    linear-gradient(62deg, transparent 0 42%, var(--spine-slice-cyan) 42% 52%, transparent 52%),
+    linear-gradient(62deg, transparent 0 42%, var(--spine-slice-cyan) 42% 52%, transparent 52%), 
     linear-gradient(110deg, transparent 0 50%, var(--spine-slice-paper) 50% 54%, transparent 54%);
-  transform: skewY(-12deg);
+  transform: skewY(-12deg); 
 }
 
 .page-spine::after {
@@ -453,8 +453,7 @@ button {
   margin-left: 96px;
 }
 
-.topbar,
-.mockup-topbar {
+.topbar {
   min-height: 70px;
   display: flex;
   align-items: center;
@@ -478,6 +477,12 @@ button {
   margin-top:4px;
 }
 
+.brand-mark img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 nav {
   display: flex;
   align-items: center;
@@ -489,6 +494,11 @@ nav {
 
 nav a:hover {
   color: var(--ink);
+}
+
+nav a[aria-current="page"],
+nav a.is-active {
+  color: var(--active, var(--green));
 }
 
 .hero,
@@ -541,15 +551,22 @@ nav a:hover {
   max-width: 1080px;
   margin: 16px 0;
   font-size: 5.5rem;
-  line-height: 0.9;
-  letter-spacing: 0;
+  line-height: 0.88;
+  letter-spacing: 0px;
+  word-spacing: 8px;
 }
 
 .hero h1 {
-  max-width: 1080px;
+  max-width: 1180px;
   font-size: 5.15rem;
+  font-size: clamp(3.5rem, 7vw, 5.15rem);
   position: relative;
   color: var(--ink);
+}
+
+.hero h1::selection {
+  color: var(--ink);
+  background: var(--bg);
 }
 
 .hero h1::after {
@@ -934,15 +951,18 @@ nav a:hover {
 
 .home-entry-list {
   display: grid;
-  gap: 16px;
+  gap: 24px;
   margin: 28px 0;
 }
 
 .home-entry {
   padding: 8px 16px;
+  border: 1px solid var(--line);
+  border: 1px solid color-mix(in srgb, var(--line) 40%, var(--bg));
   border-left: 2px solid var(--active);
-  background: var(--panel-fill);
+  /* background: var(--panel-fill); */
 }
+
 
 .home-entry span {
   color: var(--muted);
@@ -955,7 +975,7 @@ nav a:hover {
 .home-entry-link {
   display: block;
   margin: 8px 0;
-  padding-bottom: 4px;
+  /* padding-bottom: 4px; */
   color: var(--ink);
   font-size: 1.25rem;
   font-weight: 500;
@@ -969,10 +989,11 @@ nav a:hover {
 .home-panel .content-tags small {
   border-color: color-mix(in srgb, var(--active) 46%, var(--line));
   color: var(--active);
+
 }
 
 .home-entry p {
-  margin: 8px 0;
+  margin: 8px 0 12px;
   color: var(--text-soft);
   line-height: 1.2;
 }
@@ -1961,7 +1982,6 @@ nav a:hover {
   }
 
   .topbar,
-  .mockup-topbar,
   .section-heading,
   .github-panel,
   .collection-hero,
@@ -1974,8 +1994,7 @@ nav a:hover {
     grid-template-columns: 1fr;
   }
 
-  .topbar,
-  .mockup-topbar {
+  .topbar {
     padding: 16px 0;
   }
 
@@ -2030,10 +2049,14 @@ nav a:hover {
     opacity: 0.84;
   }
 
+  .page-spine {
+    display: none;
+  }
+
   .page-spine ~ .site-shell {
-    width: calc(100% - 88px);
-    margin-right: 16px;
-    margin-left: 72px;
+    width: calc(100% - 32px);
+    margin-right: auto;
+    margin-left: auto;
   }
 
   .hero-feed {
@@ -2131,25 +2154,8 @@ nav a:hover {
     width: calc(100% - 20px);
   }
 
-  .page-spine {
-    width: 28px;
-  }
-
-  .page-spine::before,
-  .page-spine::after,
-  .spine-collage {
-    display: none;
-  }
-
-  .spine-rail {
-    left: 9px;
-    font-size: 0.55rem;
-  }
-
   .page-spine ~ .site-shell {
-    width: calc(100% - 44px);
-    margin-right: 8px;
-    margin-left: 36px;
+    width: calc(100% - 20px);
   }
 
   .hero-feed {

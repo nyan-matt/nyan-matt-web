@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
+import SiteHeader from "../../components/SiteHeader.astro";
 import SiteLayout from "../../layouts/SiteLayout.astro";
 import { formatEntryDate } from "../../lib/contentMeta";
 
@@ -17,17 +18,7 @@ const { Content } = await render(entry);
 
 <SiteLayout title={`${entry.data.title} - Artifacts - Nyan Matt Lab`} description={entry.data.subtitle}>
   <main class="mockup-page entry-page entry-artifact">
-    <header class="mockup-topbar">
-      <a class="brand" href="/">
-        <span class="brand-mark" aria-hidden="true"></span>
-        <span>Nyan Matt</span>
-      </a>
-      <nav aria-label="Primary">
-        <a href="/notes/">Notes</a>
-        <a href="/experiments/">Experiments</a>
-        <a href="/artifacts/">Artifacts</a>
-      </nav>
-    </header>
+    <SiteHeader />
 
     <article class="entry-shell entry-shell-artifact">
       <header class="entry-terminal-hero">
