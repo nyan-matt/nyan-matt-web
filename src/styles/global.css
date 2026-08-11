@@ -121,6 +121,7 @@ html[data-theme="light"] {
   --scrollbar-thumb: rgba(21, 23, 20, 0.42);
   --scrollbar-thumb-soft: rgba(21, 23, 20, 0.36);
   --abstract-opacity: 0.78;
+    --abstract-asset: url("/assets/abstract-dark.svg");
   --abstract-asset: none;
   --abstract-left: 44px;
   --abstract-top: 44px;
@@ -1021,7 +1022,7 @@ nav a.is-active {
   display: grid;
   grid-template-columns: 0.48fr 1fr;
   gap: 24px;
-  padding: 56px 0;
+  padding: 24px;
   border-top: 1px solid var(--line);
   background: var(--panel-fill);
   backdrop-filter: blur(2px);
