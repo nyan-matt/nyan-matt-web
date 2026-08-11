@@ -2,7 +2,7 @@
 title: "Supporting High Density Enterprise UIs"
 subtitle: "Users want to see data and don't care about your design system"
 date: 2026-08-02
-tags: ["design", "design system", "enterprise", "density"]
+tags: ["design", "design systems", "enterprise", "density"]
 ---
 
 ## So you have a design system?

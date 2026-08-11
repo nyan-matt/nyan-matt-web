@@ -1017,7 +1017,9 @@ nav a.is-active {
   font-size: 0.74rem;
   line-height: 1.45;
 }
-
+.home-note-grid p a:hover {
+  color: var(--active);
+}
 .github-panel {
   display: grid;
   grid-template-columns: 0.48fr 1fr;
@@ -1034,6 +1036,10 @@ nav a.is-active {
   font-size: 3.2rem;
   line-height: 0.98;
   letter-spacing: 0;
+}
+
+.github-panel-copy p a {
+  color: var(--green);
 }
 
 .github-panel-copy p:not(.panel-kicker) {
