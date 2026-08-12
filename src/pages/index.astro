@@ -59,7 +59,7 @@ const previewModeClasses = {
           
         </p>
       </div>
-      <aside class="hero-feed" aria-label="Scrollable site feed">
+      <aside class="hero-feed reveal-on-scroll reveal-delay-1" data-reveal aria-label="Scrollable site feed">
         <div class="feed-head">
           <p class="panel-kicker"><span>feed</span><span>current transmissions</span></p>
           <strong>scroll</strong>
@@ -81,7 +81,7 @@ const previewModeClasses = {
     <section class="section-band" id="collections">
       
       <section class="home-panel-grid" aria-label="Site collection overview">
-        <article class="home-panel home-panel-notes">
+        <article class="home-panel home-panel-notes reveal-on-scroll reveal-delay-2" data-reveal>
           <div class="home-panel-preview">
             <div class="home-panel-intro">
               <div>
@@ -109,7 +109,7 @@ const previewModeClasses = {
           </div>
         </article>
 
-        <article class="home-panel home-panel-experiments">
+        <article class="home-panel home-panel-experiments reveal-on-scroll reveal-delay-3" data-reveal>
           <div class="home-panel-preview">
             <div class="home-panel-intro">
               <div>
@@ -153,7 +153,7 @@ const previewModeClasses = {
           </div>
         </article>
 
-        <article class="home-panel home-panel-artifacts">
+        <article class="home-panel home-panel-artifacts reveal-on-scroll reveal-delay-4" data-reveal>
           <div class="home-panel-preview">
             <div class="home-panel-intro">
               <div>
@@ -187,7 +187,7 @@ const previewModeClasses = {
 
     <GitHubContributionCalendar result={githubContributions} />
 
-    <section class="content-map">
+    <section class="content-map reveal-on-scroll reveal-delay-2" data-reveal>
       <div>
         <h2>More pages</h2>
       </div>
@@ -307,8 +307,33 @@ const previewModeClasses = {
 
   refreshFeed();
 
-  const dotCanvases = document.querySelectorAll("[data-dot-canvas]");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const revealItems = document.querySelectorAll("[data-reveal]");
+
+  if (revealItems.length) {
+    if (reduceMotion || !("IntersectionObserver" in window)) {
+      revealItems.forEach((item) => item.classList.add("is-visible"));
+    } else {
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        });
+      }, {
+        rootMargin: "0px 0px -12% 0px",
+        threshold: 0.14
+      });
+
+      revealItems.forEach((item) => {
+        item.classList.add("is-reveal-pending");
+        revealObserver.observe(item);
+      });
+    }
+  }
+
+  const dotCanvases = document.querySelectorAll("[data-dot-canvas]");
   const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
   const mix = (a, b, amount) => a + (b - a) * amount;
   const ease = (value) => value * value * (3 - 2 * value);
