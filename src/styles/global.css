@@ -459,15 +459,17 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
-  border-bottom: 1px solid var(--line);
+  gap: 24px;
+  text-transform: uppercase;
+  /* border-bottom: 1px solid var(--line); */
 }
 
 .brand {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  font-weight: 750;
+  font-weight: 900;
+  font-size: 16px;
   letter-spacing: 0;
 }
 
@@ -489,8 +491,8 @@ nav {
   align-items: center;
   gap: 24px;
   color: var(--muted);
-  font-size: 0.88rem;
-  font-weight: 650;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 nav a:hover {
@@ -528,7 +530,7 @@ nav a.is-active {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(24px, 5vw, 56px) 0;
+  padding: clamp(8px, 5vw, 56px) 0;
 }
 
 
@@ -591,7 +593,7 @@ nav a.is-active {
 .plain-page p {
   max-width: 760px;
   color: var(--text-soft);
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   line-height: 1.55;
 }
 
@@ -2038,7 +2040,7 @@ nav a.is-active {
   .mockup-hero {
     grid-template-columns: 1fr;
     min-height: auto;
-    padding-top: 28px;
+    padding-top: 0px;
   }
 
   .hero {
@@ -2047,7 +2049,7 @@ nav a.is-active {
   }
 
   .hero-copy {
-    min-height: 520px;
+    /* min-height: 520px; */
     justify-content: center;
   }
 
@@ -2166,17 +2168,27 @@ nav a.is-active {
   }
 
   .hero-feed {
-    height: min(330px, 56vh);
-    max-height: 330px;
-    min-height: 260px;
+    max-height: 420px;
+    min-height: 360px;
   }
 
   .hero-copy {
-    min-height: 470px;
+    position: relative;
+    z-index: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0px 8px;
   }
 
   .page-abstract {
     opacity: 0.7;
+  }
+  .hero h1 {
+    line-height: 1.0;
+    letter-spacing: 0px;
+    word-spacing: unset;
   }
 
   .hero h1,
@@ -2194,7 +2206,9 @@ nav a.is-active {
   .plain-page p,
   .notebook-title p:not(.eyebrow),
   .atlas-hero p:not(.eyebrow) {
-    font-size: 1rem;
+    font-size: 1.25rem;
+    margin: 4px 0px;
+    line-height: 1.2;
   }
 
   .section-heading h2,
