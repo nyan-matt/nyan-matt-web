@@ -424,7 +424,7 @@ body {
   transform-origin: center bottom;
 }
 
-.page-abstract i:nth-child(1) {
+/* .page-abstract i:nth-child(1) {
   width: 120px;
   height: 88%;
   left: 54px;
@@ -477,7 +477,7 @@ body {
   bottom: -48px;
   background: var(--abstract-amber);
   clip-path: polygon(12% 7%, 74% 0, 100% 100%, 48% 100%);
-}
+} */
 
 body,
 button {
@@ -649,6 +649,7 @@ nav a.is-active {
   inset: -0.08em -0.12em;
   z-index: 2;
   pointer-events: none;
+  opacity: 0;
   background:
     linear-gradient(
       90deg,
@@ -659,8 +660,7 @@ nav a.is-active {
       transparent 66%
     );
   mix-blend-mode: screen;
-  animation: hero-text-scan 740ms cubic-bezier(0.16, 1, 0.3, 1) 200ms both;
-  will-change: opacity, transform;
+  animation: hero-text-scan 740ms cubic-bezier(0.16, 1, 0.3, 1) 200ms backwards;
 }
 
 .hero-copy p:not(.eyebrow),
