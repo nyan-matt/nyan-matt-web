@@ -611,7 +611,7 @@ nav a.is-active {
 
 .hero {
   position: relative;
-  height: clamp(620px, calc(100vh - 92px), 800px);
+  height: clamp(540px, calc(100vh - 92px), 640px);
   grid-template-rows: minmax(0, 1fr);
 }
 
@@ -896,7 +896,7 @@ nav a.is-active {
 .section-band,
 .content-map,
 .plain-page {
-  padding: 56px 0;
+  padding: 48px 0;
   border-top: 1px solid var(--line);
 }
 
