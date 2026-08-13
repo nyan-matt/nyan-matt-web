@@ -25,12 +25,12 @@ const activeSection = navItems.find((item) => {
     </span>
     <span>Nyan Matt</span>
   </a>
-  <details class="site-menu">
-    <summary aria-label="Toggle primary navigation">
+  <div class="site-menu" data-site-menu>
+    <button class="site-menu-toggle" type="button" aria-expanded="false" aria-label="Toggle primary navigation" data-site-menu-toggle>
       <span>Menu</span>
       <i aria-hidden="true"></i>
-    </summary>
-    <nav aria-label="Primary">
+    </button>
+    <nav aria-label="Primary" data-site-menu-nav>
       {navItems.map((item) => (
         <a
           class:list={[{ "is-active": activeSection === item.section }]}
@@ -41,5 +41,25 @@ const activeSection = navItems.find((item) => {
         </a>
       ))}
     </nav>
-  </details>
+  </div>
 </header>
+
+<script>
+  document.querySelectorAll("[data-site-menu]").forEach((menu) => {
+    const toggle = menu.querySelector("[data-site-menu-toggle]");
+    const nav = menu.querySelector("[data-site-menu-nav]");
+    if (!(toggle instanceof HTMLButtonElement) || !(nav instanceof HTMLElement)) return;
+
+    toggle.addEventListener("click", () => {
+      const isOpen = menu.classList.toggle("is-open");
+      toggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    nav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        menu.classList.remove("is-open");
+        toggle.setAttribute("aria-expanded", "false");
+      });
+    });
+  });
+</script>
