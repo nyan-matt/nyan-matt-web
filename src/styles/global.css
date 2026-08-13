@@ -684,6 +684,7 @@ nav a.is-active {
   -webkit-background-clip: text;
   background-clip: text;
   mix-blend-mode: color-burn;
+  filter: drop-shadow(2px 4px 6px #00000066) contrast(0.9);
 }
 
 .hero h1::before {
