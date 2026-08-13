@@ -1,22 +1,15 @@
 ---
 title: "UX behavioral links"
-subtitle: "Annotated links and screenshots that keep the e-zine influence visible."
+subtitle: "UX laws, behavioral psychology resources"
 date: 2026-07-29
 tags: ["ux", "psychology", "link list"]
 ---
 
-Artifacts are for useful things that are not quite essays and not quite experiments. This entry is a placeholder for a reference set: links, notes, images, and design behaviors worth keeping nearby.
+Resources exploring psychology, behavioral science, cognitive biases, and how people make decisions when interacting with products.
 
-The important move is curation. A link by itself can be a feed item; a link with context, grouping, and reuse value becomes an artifact.
+[Nudges FYI](https://www.nudges.fyi/) A collection of real-world examples of behavioral science and nudges applied to products and experiences.
 
-https://www.nudges.fyi/
-https://lawsofux.com/
+[Laws of UX](https://lawsofux.com/) Jon Yablonski’s excellent visual reference connecting familiar UX principles with psychology, including Hick’s Law, Miller’s Law, the peak-end rule, cognitive biases, and others. 
 
-
-Artifacts are for useful things that are not quite essays and not quite experiments. This entry is a placeholder for a reference set: links, notes, images, and design behaviors worth keeping nearby.
-
-The important move is curation. A link by itself can be a feed item; a link with context, grouping, and reuse value becomes an artifact.
-
-https://www.nudges.fyi/
-https://lawsofux.com/
+[Behavioral Economics IxDF](https://ixdf.org/literature/topics/behavioral-economics) Overview connecting behavioral economics with design, including defaults, loss aversion, decision-making, and nudging.
 
