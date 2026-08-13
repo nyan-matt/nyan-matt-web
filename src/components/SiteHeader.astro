@@ -25,15 +25,21 @@ const activeSection = navItems.find((item) => {
     </span>
     <span>Nyan Matt</span>
   </a>
-  <nav aria-label="Primary">
-    {navItems.map((item) => (
-      <a
-        class:list={[{ "is-active": activeSection === item.section }]}
-        href={item.href}
-        aria-current={activeSection === item.section ? "page" : undefined}
-      >
-        {item.label}
-      </a>
-    ))}
-  </nav>
+  <details class="site-menu">
+    <summary aria-label="Toggle primary navigation">
+      <span>Menu</span>
+      <i aria-hidden="true"></i>
+    </summary>
+    <nav aria-label="Primary">
+      {navItems.map((item) => (
+        <a
+          class:list={[{ "is-active": activeSection === item.section }]}
+          href={item.href}
+          aria-current={activeSection === item.section ? "page" : undefined}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+  </details>
 </header>

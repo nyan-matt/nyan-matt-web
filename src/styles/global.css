@@ -414,6 +414,38 @@ body {
   }
 }
 
+@keyframes hero-mobile-title-enter {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes hero-mobile-text-scan {
+  0% {
+    opacity: 0;
+    transform: translate3d(-104%, 0, 0) skewX(-6deg);
+  }
+
+  24% {
+    opacity: 0.7;
+  }
+
+  68% {
+    opacity: 0.46;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(104%, 0, 0) skewX(-6deg);
+  }
+}
+
 .page-abstract.is-asset i {
   display: none;
 }
@@ -514,6 +546,9 @@ button {
   justify-content: space-between;
   gap: 24px;
   text-transform: uppercase;
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 14px;
   /* border-bottom: 1px solid var(--line); */
 }
 
@@ -521,8 +556,6 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  font-weight: 900;
-  font-size: 16px;
   letter-spacing: 0;
 }
 
@@ -544,8 +577,6 @@ nav {
   align-items: center;
   gap: 24px;
   color: var(--muted);
-  font-size: 16px;
-  font-weight: 600;
 }
 
 nav a:hover {
@@ -555,6 +586,14 @@ nav a:hover {
 nav a[aria-current="page"],
 nav a.is-active {
   color: var(--active, var(--green));
+}
+
+.site-menu {
+  color: var(--muted);
+}
+
+.site-menu summary {
+  display: none;
 }
 
 .hero,
@@ -2105,12 +2144,13 @@ nav a.is-active {
   }
 
   .topbar {
-    padding: 16px 0;
+    padding: 8px;
+    flex-direction: row;
   }
 
   nav {
-    flex-wrap: wrap;
-    gap: 16px;
+    flex-wrap: no-wrap;
+    gap: 12px;
   }
 
   .hero h1,
@@ -2147,6 +2187,7 @@ nav a.is-active {
   .hero {
     height: auto;
     align-items: start;
+    overflow: clip;
   }
 
   .hero-copy {
@@ -2259,9 +2300,113 @@ nav a.is-active {
     --abstract-text-opacity: 0.58;
   }
 
+.topbar {
+    font-size: 16px;
+  }
+
   .site-shell,
   .mockup-page {
     width: calc(100% - 20px);
+  }
+
+  .topbar {
+    position: relative;
+    align-items: center;
+  }
+
+  .site-menu {
+    position: relative;
+    margin-left: auto;
+  }
+
+  .site-menu summary {
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 10px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    color: var(--ink);
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+
+  .site-menu summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .site-menu summary i {
+    position: relative;
+    width: 14px;
+    height: 10px;
+    display: block;
+    border-top: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+  }
+
+  .site-menu summary i::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 0;
+    width: 100%;
+    border-top: 2px solid currentColor;
+  }
+
+  .site-menu[open] summary i {
+    height: 14px;
+    border: 0;
+  }
+
+  .site-menu[open] summary i::before,
+  .site-menu[open] summary i::after {
+    content: "";
+    position: absolute;
+    top: 6px;
+    left: 0;
+    width: 100%;
+    border-top: 2px solid currentColor;
+  }
+
+  .site-menu[open] summary i::before {
+    transform: rotate(45deg);
+  }
+
+  .site-menu[open] summary i::after {
+    transform: rotate(-45deg);
+  }
+
+  .site-menu nav {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    z-index: 20;
+    min-width: 180px;
+    display: none;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 0;
+    padding: 8px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--panel-fill-strong);
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.42);
+  }
+
+  .site-menu[open] nav {
+    display: flex;
+  }
+
+  .site-menu nav a {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+  }
+
+  .site-menu nav a:last-child {
+    border-bottom: 0;
   }
 
   .page-spine ~ .site-shell {
@@ -2290,6 +2435,31 @@ nav a.is-active {
     line-height: 1.0;
     letter-spacing: 0px;
     word-spacing: unset;
+    color: var(--ink);
+    animation: hero-mobile-title-enter 520ms cubic-bezier(0.16, 1, 0.3, 1) 100ms backwards;
+  }
+
+  .hero h1::after {
+    content: none;
+  }
+
+  .hero h1::before {
+    inset: -0.06em -0.08em;
+    background:
+      linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(243, 245, 242, 0) 40%,
+        rgba(243, 245, 242, 0.5) 48%,
+        rgba(60, 255, 137, 0.2) 52%,
+        transparent 64%
+      ),
+      repeating-linear-gradient(
+        180deg,
+        rgba(243, 245, 242, 0.12) 0 1px,
+        transparent 1px 7px
+      );
+    animation: hero-mobile-text-scan 1080ms cubic-bezier(0.16, 1, 0.3, 1) 300ms backwards;
   }
 
   .hero h1,
