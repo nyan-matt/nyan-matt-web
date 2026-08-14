@@ -361,6 +361,35 @@ body {
   background-size: auto var(--abstract-height);
 }
 
+@keyframes abstract-mask-reveal {
+  0% {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+    filter: saturate(1.22) contrast(1.08);
+  }
+
+  30% {
+    opacity: calc(var(--abstract-opacity) * 0.38);
+    clip-path: inset(0 0 80% 0);
+  }
+
+  60% {
+    opacity: calc(var(--abstract-opacity) * 0.78);
+    clip-path: inset(0 0 50% 0);
+  }
+
+  100% {
+    opacity: var(--abstract-opacity);
+    clip-path: inset(0 0 0 0);
+    filter: saturate(1) contrast(1);
+  }
+}
+
+.page-abstract.is-asset {
+  animation: abstract-mask-reveal 820ms cubic-bezier(0.16, 1, 0.3, 1) 100ms backwards;
+  will-change: opacity, clip-path, filter;
+}
+
 @keyframes home-block-enter {
   from {
     opacity: 0;
@@ -2555,6 +2584,13 @@ nav a.is-active {
   .hero h1::before {
     animation: none;
     content: none;
+    will-change: auto;
+  }
+
+  .page-abstract.is-asset {
+    animation: none;
+    clip-path: none;
+    filter: none;
     will-change: auto;
   }
 
