@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-09-09T01:36:16.205Z",
+    "id": "teaching-agents-product-design-at-vercel",
+    "title": "Teaching agents product design at Vercel",
+    "body": "Vercel's write up on using md to guide agents on product design",
+    "href": "https://vercel.com/blog/teaching-agents-product-design-at-vercel"
+  },
+  {
+    "date": "2026-08-25T13:36:47.477Z",
+    "id": "really-liking-ui-camera",
+    "title": ":Really liking UI.camera",
+    "body": "Well designed and useful app for app demos and animations",
+    "href": "https://ui.camera/"
+  },
+  {
     "date": "2026-08-18T13:58:51.512Z",
     "id": "early-preview-of-design-command-in-claude",
     "title": "Early preview of /design command in Claude",
