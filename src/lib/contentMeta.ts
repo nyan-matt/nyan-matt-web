@@ -20,6 +20,7 @@ export function selectFeaturedThenLatest<T extends CoreEntry>(entries: T[], limi
 
 export function formatEntryDate(date: Date): string {
   return new Intl.DateTimeFormat("en", {
+    timeZone: "UTC",
     day: "2-digit",
     month: "short",
     year: "numeric"

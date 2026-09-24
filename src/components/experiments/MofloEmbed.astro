@@ -1,0 +1,54 @@
+---
+type Props = {
+  src: string;
+  title: string;
+  aspectRatio?: string;
+};
+
+const { src, title, aspectRatio = "16 / 9" } = Astro.props;
+// In development, a deployed copy lets the HTTPS viewer load the project
+// while the surrounding portfolio page runs on localhost.
+const projectOrigin = import.meta.env.DEV
+  ? import.meta.env.PUBLIC_MOFLO_PROJECT_ORIGIN || Astro.site?.origin
+  : undefined;
+---
+
+<iframe
+  class="moflo-embed"
+  title={title}
+  data-moflo-embed
+  data-project-src={src}
+  data-project-origin={projectOrigin}
+  allow="autoplay"
+  loading="eager"
+  style={{ aspectRatio }}
+></iframe>
+<noscript>Enable JavaScript to play this animation.</noscript>
+
+<script>
+  document.querySelectorAll<HTMLIFrameElement>("[data-moflo-embed]").forEach((frame) => {
+    // Resolve in the browser so production and deploy previews use their own
+    // asset host, without baking a localhost origin into the static build.
+    const project = new URL(
+      frame.dataset.projectSrc!,
+      frame.dataset.projectOrigin || window.location.origin
+    );
+    const viewer = new URL("https://moflo.design/viewer/");
+    viewer.searchParams.set("src", project.href);
+    viewer.searchParams.set("autoplay", "1");
+    viewer.searchParams.set("loop", "1");
+    viewer.searchParams.set("controls", "0");
+    frame.src = viewer.href;
+  });
+</script>
+
+<style>
+  .moflo-embed {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 24px 0;
+    border: 0;
+    background: #111;
+  }
+</style>
