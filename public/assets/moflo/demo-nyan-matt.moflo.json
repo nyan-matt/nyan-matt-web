@@ -1,7 +1,7 @@
 {
   "version": 3,
   "name": "Demo - devices in motion",
-  "background": "#ffffff",
+  "background": "#252832",
   "aspect": "16:9",
   "scenes": [
     {
@@ -10,7 +10,7 @@
       "type": "text",
       "src": "",
       "text": "Put your work\nin perspective.",
-      "textColor": "#050505",
+      "textColor": "#fafafa",
       "typography": {
         "family": "dm-sans",
         "size": 110,
@@ -306,7 +306,7 @@
       "type": "text",
       "src": "",
       "text": "Open your laptop.",
-      "textColor": "#050505",
+      "textColor": "#fafafa",
       "typography": {
         "family": "dm-sans",
         "size": 110,
@@ -392,7 +392,7 @@
       "device": {
         "model": "laptop",
         "revision": 2,
-        "finish": "#3f474f",
+        "finish": "#151719",
         "screen": {
           "type": "image",
           "src": "asset:sha256-15f24a69abbf74738690827e18e623853324e3cac065947f7fccdc4ccac0f0ea",
@@ -538,7 +538,7 @@
       "type": "text",
       "src": "",
       "text": "Take us for a spin.\n(or zoom & pan)",
-      "textColor": "#050505",
+      "textColor": "#fafafa",
       "typography": {
         "family": "dm-sans",
         "size": 110,
@@ -814,8 +814,8 @@
       "name": "Outro",
       "type": "text",
       "src": "",
-      "text": "Moflo",
-      "textColor": "#222630",
+      "text": "moflo.design",
+      "textColor": "#fafafa",
       "typography": {
         "family": "dm-sans",
         "size": 110,
@@ -895,24 +895,6 @@
       }
     }
   ],
-  "backdrop": {
-    "baseColor": "#ffffff",
-    "tint": {
-      "color": "#ffffff",
-      "strength": 0
-    },
-    "kind": "abstract",
-    "presetId": "aurora",
-    "color1": "#d9d9d9",
-    "color2": "#fafafa",
-    "angle": 80,
-    "intensity": 1,
-    "motion": {
-      "mode": "drift",
-      "direction": "horizontal",
-      "amount": 0.5
-    }
-  },
   "assets": {
     "sha256-cc059a752246980b8d8134c5ec5fcc1ffeeff8a2a9589f9c381efb14125768cb": {
       "mimeType": "image/webp",
