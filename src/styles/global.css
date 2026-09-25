@@ -632,10 +632,17 @@ nav a.is-active {
 .hero,
 .mockup-hero {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(380px, 0.56fr);
   gap: 16px;
   align-items: stretch;
   padding: 48px 0 16px;
+}
+
+/* Keep the hero feed on the same column tracks as the collection panels. */
+.hero,
+.home-panel-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
 }
 
 .hero {
@@ -645,10 +652,12 @@ nav a.is-active {
 }
 
 .mockup-hero {
+  grid-template-columns: minmax(0, 1fr) minmax(380px, 0.56fr);
   min-height: 560px;
 }
 
 .hero-copy {
+  grid-column: span 2;
   position: relative;
   z-index: 1;
   min-height: 0;
@@ -946,12 +955,6 @@ nav a.is-active {
   font-size: 3.2rem;
   line-height: 1;
   letter-spacing: 0;
-}
-
-.home-panel-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
 }
 
 .home-panel {
@@ -2238,6 +2241,7 @@ nav a.is-active {
   }
 
   .hero-copy {
+    grid-column: auto;
     /* min-height: 520px; */
     justify-content: center;
   }
