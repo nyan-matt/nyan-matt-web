@@ -2,11 +2,13 @@
 import "../styles/global.css";
 
 type Props = {
+  home?: boolean;
   title?: string;
   description?: string;
 };
 
 const {
+  home = false,
   title = "Nyan Matt Lab",
   description = "A working notebook for AI experiments, posts, and umbrella projects."
 } = Astro.props;
@@ -18,9 +20,24 @@ const {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <script is:inline>
+      // Resolve before paint so a saved theme never flashes the other palette.
+      (() => {
+        let theme;
+        try { theme = localStorage.getItem("nyan-matt-theme"); } catch {}
+        document.documentElement.dataset.theme = theme === "light" || theme === "dark"
+          ? theme
+          : "dark";
+      })();
+    </script>
     <title>{title}</title>
   </head>
-  <body>
+  <body data-page={home ? "home" : "content"}>
+    <div class="site-spine" aria-hidden="true"></div>
     <slot />
   </body>
 </html>
+
+<script>
+  import "../scripts/theme";
+</script>

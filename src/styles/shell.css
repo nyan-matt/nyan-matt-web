@@ -1,0 +1,317 @@
+/* Shared page shell, navigation and image-backed spine, with theme treatments. */
+
+.site-shell,
+.content-page {
+  position: relative;
+  z-index: 1;
+  width: calc(100% - 104px);
+  margin: 0 32px 0 72px;
+}
+
+.topbar {
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  letter-spacing: 0;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  color: var(--muted);
+}
+
+nav a:hover {
+  color: var(--ink);
+}
+
+nav a[aria-current="page"],
+nav a.is-active {
+  color: var(--active, var(--accent));
+}
+
+.site-menu {
+  color: var(--muted);
+}
+
+.site-menu nav {
+  display: flex;
+}
+
+.site-menu-toggle {
+  display: none;
+}
+
+.content-page {
+  --active: var(--accent);
+  padding-bottom: 48px;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--panel-fill-solid);
+  color: var(--ink);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.theme-indicator {
+  width: 12px;
+  height: 12px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  background: linear-gradient(90deg, currentColor 50%, transparent 50%);
+}
+
+html[data-theme="light"] .topbar {
+  border-bottom: 1px solid var(--line);
+}
+
+html[data-theme="light"] .theme-toggle {
+  border-radius: 0;
+  background: #e9f8fa;
+}
+
+html[data-theme="light"] .brand {
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+/* One decorative surface; each theme supplies its own image and crop.
+   Widths and page gutters are shared so theme switching keeps the same alignment. */
+
+.site-spine {
+  display: none;
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 0;
+  width: 34px;
+  pointer-events: none;
+  background-image: var(--spine-image);
+  background-position: center;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  opacity: var(--spine-opacity);
+}
+
+body[data-page="home"] .site-spine {
+  display: block;
+}
+
+html[data-theme="light"] .site-spine {
+  display: block;
+  background-size: 110px 110vh;
+  background-repeat: repeat-y;
+}
+
+@media (max-width: 900px) {
+  .topbar {
+    align-items: stretch;
+    flex-direction: column;
+    grid-template-columns: 1fr;
+  }
+
+  .topbar {
+    padding: 8px;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  nav {
+    flex-wrap: nowrap;
+    gap: 12px;
+  }
+
+  .site-shell,
+  .content-page {
+    width: calc(100% - 48px);
+    margin-inline: 24px;
+  }
+
+  .header-controls {
+    gap: 14px;
+  }
+
+  .site-spine {
+    width: 8px;
+  }
+
+  html[data-theme="light"] .site-spine {
+    background-size: 40px 110vh;
+  }
+}
+
+@media (max-width: 560px) {
+  .topbar {
+    font-size: 16px;
+  }
+
+  .site-shell,
+  .content-page {
+    width: calc(100% - 32px);
+    margin-inline: 16px;
+  }
+
+  .topbar {
+    position: relative;
+    align-items: center;
+  }
+
+  .site-menu {
+    position: relative;
+    margin-left: auto;
+  }
+
+  .site-menu-toggle {
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 10px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    color: var(--ink);
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    background: transparent;
+    font: inherit;
+    text-transform: uppercase;
+  }
+
+  .site-menu-toggle i {
+    position: relative;
+    width: 14px;
+    height: 10px;
+    display: block;
+    border-top: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+  }
+
+  .site-menu-toggle i::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 0;
+    width: 100%;
+    border-top: 2px solid currentColor;
+  }
+
+  .site-menu.is-open .site-menu-toggle i {
+    height: 14px;
+    border: 0;
+  }
+
+  .site-menu.is-open .site-menu-toggle i::before,
+  .site-menu.is-open .site-menu-toggle i::after {
+    content: "";
+    position: absolute;
+    top: 6px;
+    left: 0;
+    width: 100%;
+    border-top: 2px solid currentColor;
+  }
+
+  .site-menu.is-open .site-menu-toggle i::before {
+    transform: rotate(45deg);
+  }
+
+  .site-menu.is-open .site-menu-toggle i::after {
+    transform: rotate(-45deg);
+  }
+
+  .site-menu nav {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    z-index: 20;
+    min-width: 180px;
+    display: none;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 0;
+    padding: 8px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--panel-fill-strong);
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.42);
+  }
+
+  .site-menu.is-open nav {
+    display: flex;
+  }
+
+  .site-menu nav a {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+  }
+
+  .site-menu nav a:last-child {
+    border-bottom: 0;
+  }
+
+  .header-controls {
+    gap: 8px;
+  }
+
+  .topbar {
+    gap: 8px;
+    padding-inline: 0;
+  }
+
+  .brand {
+    font-size: 12px;
+    gap: 6px;
+  }
+
+  .site-menu-toggle {
+    font-size: 12px;
+  }
+
+  .theme-toggle {
+    padding: 8px;
+    font-size: 12px;
+    min-height: 36px;
+  }
+
+  .theme-indicator {
+    width: 10px;
+    height: 10px;
+  }
+
+  html[data-theme="light"] .site-menu nav {
+    box-shadow: 0 8px 24px rgb(0 40 50 / 10%);
+  }
+
+  .site-spine {
+    width: 5px;
+  }
+}

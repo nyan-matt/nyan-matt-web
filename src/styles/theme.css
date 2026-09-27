@@ -1,0 +1,92 @@
+/* Theme palettes and asset controls. Shared layout belongs to the component styles. */
+
+:root,
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --preview-ink-rgb: 122 126 132;
+  --preview-ascii-rgb: 130 130 130;
+  --spine-image: url("/assets/spine-dark.svg");
+  --spine-opacity: 0.85;
+  --bg: #050607;
+  --panel: #090b0d;
+  --panel-2: #0e1114;
+  --ink: #f3f5f2;
+  --muted: #888f92;
+  --faint: #4d5357;
+  --line: #24282c;
+  --accent: #3cff89;
+  --accent-notes: #7dd3fc;
+  --accent-artifacts: #ffcc66;
+  --danger: #ff6b6b;
+  --text-soft: #bcc2c4;
+  --text-panel: #b6bbbd;
+  --text-feed: #b8bec0;
+  --panel-fill: color-mix(in srgb, var(--panel) 88%, transparent);
+  --panel-fill-solid: #050607;
+  --panel-fill-strong: rgba(3, 4, 4, 0.94);
+  --panel-fill-soft: rgba(255, 255, 255, 0.025);
+  --dot-grid-image: radial-gradient(rgba(102, 102, 102, 0.133) 2px, transparent 1px);
+  --dot-grid-size: 20px 20px;
+  --paper-texture-image: none;
+  --paper-texture-opacity: 0;
+  --feed-fill: rgba(5, 6, 7, 0.94);
+  --feed-wash: rgba(60, 255, 137, 0.06);
+  --feed-row-fill: rgba(255, 255, 255, 0.025);
+  --scrollbar-track: rgba(243, 245, 242, 0.08);
+  --scrollbar-thumb: rgba(243, 245, 242, 0.52);
+  --scrollbar-thumb-soft: rgba(243, 245, 242, 0.5);
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+  --preview-ink-rgb: 22 28 31;
+  --preview-ascii-rgb: 22 28 31;
+  --preview-accent-rgb: 0 145 170;
+  --bg: #fcfdfc;
+  --panel: #f7fbfb;
+  --panel-2: #edf5f5;
+  --ink: #161c1f;
+  --muted: #536469;
+  --faint: #75858a;
+  --line: #cad5d6;
+  --accent: #006879;
+  --accent-notes: #006879;
+  --accent-artifacts: #006879;
+  --danger: #a13228;
+  --text-soft: #34454b;
+  --text-panel: #34454b;
+  --text-feed: #34454b;
+  --panel-fill: rgb(255 255 255 / 72%);
+  --panel-fill-solid: #fcfdfc;
+  --panel-fill-strong: #fcfdfc;
+  --panel-fill-soft: rgb(0 173 198 / 4%);
+  --feed-fill: #f7fbfb;
+  --feed-wash: rgb(0 173 198 / 6%);
+  --feed-row-fill: transparent;
+  --contribution-1: #b9eef2;
+  --contribution-2: #64d3df;
+  --contribution-3: #00b9d3;
+  --contribution-4: var(--accent);
+  --scrollbar-track: rgb(0 90 110 / 5%);
+  --scrollbar-thumb: #79979c;
+  --scrollbar-thumb-soft: #79979c;
+  --dot-grid-image: none;
+  --paper-texture-image: none;
+  --abstract-asset: none;
+  --ink-streak: url("/assets/ink/streak.png");
+  --ink-transfer: url("/assets/ink/transfer.png");
+  --spine-image: var(--ink-streak);
+  --spine-opacity: 0.85;
+  --ink-hero-opacity: 0.88;
+  --ink-feed-opacity: 0.09;
+  --ink-entry-opacity: 0.58;
+  --ink-entry-mark: var(--ink-streak);
+}
+
+@media (max-width: 900px) {
+  html[data-theme="light"] {
+    --ink-hero-opacity: 0.18;
+    --ink-feed-opacity: 0.09;
+    --ink-entry-opacity: 0.46;
+  }
+}
