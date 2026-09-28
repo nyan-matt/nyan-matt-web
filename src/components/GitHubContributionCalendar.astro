@@ -9,6 +9,11 @@ const { result } = Astro.props;
 const calendar = result.calendar;
 const days = calendar?.weeks.flatMap((week) => week.contributionDays) ?? [];
 const maxCount = Math.max(1, ...days.map((day) => day.contributionCount));
+// Keep GitHub's intensity buckets and use the same theme palette for days and legend.
+const contributionColor = (color: string) => {
+  const level = (calendar?.colors.indexOf(color) ?? -1) + 1;
+  return level > 0 ? `var(--contribution-${level}, ${color})` : color;
+};
 const fetchedDate = result.fetchedAt
   ? new Intl.DateTimeFormat("en", {
       day: "2-digit",
@@ -47,7 +52,7 @@ const fetchedDate = result.fetchedAt
                 <time
                   datetime={day.date}
                   data-count={day.contributionCount}
-                  style={`--day-color: ${day.color}; --day-level: ${day.contributionCount / maxCount};`}
+                  style={`--day-color: ${contributionColor(day.color)}; --day-level: ${day.contributionCount / maxCount};`}
                   title={`${day.date}: ${day.contributionCount} contributions`}
                   aria-label={`${day.date}: ${day.contributionCount} contributions`}
                 />
@@ -57,7 +62,7 @@ const fetchedDate = result.fetchedAt
         </div>
         <div class="github-calendar-scale" aria-hidden="true">
           <span>less</span>
-          {calendar.colors.map((color) => <i style={`--day-color: ${color};`}></i>)}
+          {calendar.colors.map((color) => <i style={`--day-color: ${contributionColor(color)};`}></i>)}
           <span>more</span>
         </div>
       </>

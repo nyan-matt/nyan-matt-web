@@ -8,6 +8,7 @@
     "feed:add": "node scripts/add-feed.mjs",
     "feed:seed": "node scripts/seed-feed.mjs",
     "build": "astro build",
+    "test:theme": "node --test scripts/test-theme.mjs",
     "preview": "astro preview"
   },
   "dependencies": {

@@ -20,12 +20,10 @@ const activeSection = navItems.find((item) => {
 
 <header class="topbar">
   <a class="brand" href="/">
-    <span class="brand-mark" aria-hidden="true">
-      <img src="/assets/pop-tart.png" alt="" />
-    </span>
-    <span>Nyan Matt</span>
+    <span>@NyanMatt</span>
   </a>
-  <div class="site-menu" data-site-menu>
+  <div class="header-controls">
+    <div class="site-menu" data-site-menu>
     <button class="site-menu-toggle" type="button" aria-expanded="false" aria-label="Toggle primary navigation" data-site-menu-toggle>
       <span>Menu</span>
       <i aria-hidden="true"></i>
@@ -41,6 +39,11 @@ const activeSection = navItems.find((item) => {
         </a>
       ))}
     </nav>
+    </div>
+    <button class="theme-toggle" type="button" role="switch" aria-label="Light theme" aria-checked="false" data-theme-toggle>
+      <span class="theme-indicator" aria-hidden="true"></span>
+      <span data-theme-label>Theme</span>
+    </button>
   </div>
 </header>
 

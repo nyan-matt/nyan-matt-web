@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 1000" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="hairline" gradientUnits="userSpaceOnUse" x1="49" y1="30" x2="49" y2="950">
+      <stop stop-color="#7dd3fc" stop-opacity=".5"/>
+      <stop offset="1" stop-color="#7dd3fc" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <path d="M49 30V950" stroke="url(#hairline)"/>
+  <path d="M-14 223 37 116 37 161-14 268Z" fill="#ff4824" opacity=".8"/>
+  <path d="M-12 300 35 368 35 397-12 329Z" fill="#03ffe8" opacity=".55"/>
+  <path d="M27 43H40V155H27Z" fill="#3cff89" opacity=".14"/>
+  <path d="M0 702 28 711V925L0 916Z" fill="#03ffe8" opacity=".12"/>
+</svg>
